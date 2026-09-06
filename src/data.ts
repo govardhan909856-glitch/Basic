@@ -171,5 +171,5 @@ export const FORMATIONS: FormationInfo[] = [
   { id: 2, key: 'grid', name: 'Grid', description: 'Quantum undulating lattice plane with ripple waves', colorHex: '#f0f0f5' },
   { id: 3, key: 'torus', name: 'Torus', description: 'Trefoil mathematical ring in continuous deformation', colorHex: '#ff0040' },
   { id: 4, key: 'galaxy', name: 'Galaxy', description: 'Four-arm spiral galactic vortex with starry dispersion', colorHex: '#ffbf00' },
-  { id: 5, key: 'vortex', name: 'Vortex', description: 'Hyperbolic singularity vortex drawing into the void', colorHex: '#c8ff00' },
+  { id: 5, key: 'vortex', name: 'Vortex', description: 'Hyperbolic singularity vortex drawing into the void', colorHex: '#a1a1aa' },
 ];

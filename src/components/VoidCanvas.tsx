@@ -6,6 +6,7 @@ interface VoidCanvasProps {
   scrollVelocity: number;
   manualFormationId: number | null; // null = follow scroll
   onActiveFormationChange?: (id: number) => void;
+  isDark?: boolean;
 }
 
 const VERT = `
@@ -28,6 +29,7 @@ uniform float uPointSize;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
 uniform float uScrollVel;
+uniform float uIsDark;
 
 varying vec3 vColor;
 varying float vAlpha;
@@ -98,12 +100,24 @@ void main() {
         pos += normalize(diff) * f * f * f * 1.0;
     }
 
-    vColor = mix(uColorA, uColorB, t) * (0.7 + hash(aIndex * 7.3) * 0.3);
-    if (dist < uMouseRadius) vColor += (1.0 - dist/uMouseRadius) * 0.2;
-    vAlpha = 0.28 + aSize * 0.14 + min(vel, 2.0) * 0.04;
+    vColor = mix(uColorA, uColorB, t) * (0.75 + hash(aIndex * 7.3) * 0.25);
+    if (dist < uMouseRadius) {
+        if (uIsDark > 0.5) {
+            vColor += (1.0 - dist/uMouseRadius) * 0.25;
+        } else {
+            vColor = mix(vColor, vec3(0.05, 0.05, 0.08), (1.0 - dist/uMouseRadius) * 0.35);
+        }
+    }
+
+    if (uIsDark > 0.5) {
+        vAlpha = 0.28 + aSize * 0.14 + min(vel, 2.0) * 0.04;
+    } else {
+        vAlpha = 0.55 + aSize * 0.25 + min(vel, 2.0) * 0.06;
+    }
 
     vec4 mv = modelViewMatrix * vec4(pos, 1.0);
-    gl_PointSize = clamp(aSize * uPointSize * (80.0 / -mv.z), 0.8, 22.0);
+    float baseSize = uIsDark > 0.5 ? uPointSize : (uPointSize * 1.3);
+    gl_PointSize = clamp(aSize * baseSize * (80.0 / -mv.z), 0.8, 24.0);
     gl_Position = projectionMatrix * mv;
 }
 `;
@@ -114,7 +128,7 @@ varying float vAlpha;
 void main() {
     float d = length(gl_PointCoord - 0.5);
     if (d > 0.5) discard;
-    float a = (1.0 - smoothstep(0.3, 0.5, d)) * vAlpha;
+    float a = (1.0 - smoothstep(0.25, 0.5, d)) * vAlpha;
     gl_FragColor = vec4(vColor, a);
 }
 `;
@@ -128,28 +142,54 @@ interface Keyframe {
   b: number;
 }
 
-const KEYFRAMES: Keyframe[] = [
-  { s: 0.00, f: 0, z: 7,   r: 1.0,  g: 0.08, b: 0.15 }, // Sphere red
-  { s: 0.07, f: 0, z: 7,   r: 1.0,  g: 0.08, b: 0.15 },
-  { s: 0.19, f: 1, z: 9,   r: 0.0,  g: 1.0,  b: 0.64 }, // Helix cyan-green
-  { s: 0.26, f: 1, z: 9,   r: 0.0,  g: 1.0,  b: 0.64 },
-  { s: 0.38, f: 2, z: 8,   r: 0.94, g: 0.94, b: 0.96 }, // Grid white/silver
-  { s: 0.45, f: 2, z: 8,   r: 0.94, g: 0.94, b: 0.96 },
-  { s: 0.57, f: 3, z: 7.5, r: 1.0,  g: 0.0,  b: 0.25 }, // Torus ruby
-  { s: 0.64, f: 3, z: 7.5, r: 1.0,  g: 0.0,  b: 0.25 },
-  { s: 0.76, f: 4, z: 10,  r: 1.0,  g: 0.75, b: 0.0  }, // Galaxy amber
-  { s: 0.83, f: 4, z: 10,  r: 1.0,  g: 0.75, b: 0.0  },
-  { s: 0.95, f: 5, z: 6,   r: 0.78, g: 1.0,  b: 0.0  }, // Vortex lime
-  { s: 1.00, f: 5, z: 6,   r: 0.78, g: 1.0,  b: 0.0  },
+// Keyframes for Dark Mode (All particles pure glowing WHITE on pitch black background)
+const KEYFRAMES_DARK: Keyframe[] = [
+  { s: 0.00, f: 0, z: 7,   r: 1.0, g: 1.0, b: 1.0 }, // Sphere pure white
+  { s: 0.07, f: 0, z: 7,   r: 1.0, g: 1.0, b: 1.0 },
+  { s: 0.19, f: 1, z: 9,   r: 1.0, g: 1.0, b: 1.0 }, // Helix pure white
+  { s: 0.26, f: 1, z: 9,   r: 1.0, g: 1.0, b: 1.0 },
+  { s: 0.38, f: 2, z: 8,   r: 1.0, g: 1.0, b: 1.0 }, // Grid pure white
+  { s: 0.45, f: 2, z: 8,   r: 1.0, g: 1.0, b: 1.0 },
+  { s: 0.57, f: 3, z: 7.5, r: 1.0, g: 1.0, b: 1.0 }, // Torus pure white
+  { s: 0.64, f: 3, z: 7.5, r: 1.0, g: 1.0, b: 1.0 },
+  { s: 0.76, f: 4, z: 10,  r: 1.0, g: 1.0, b: 1.0 }, // Galaxy pure white
+  { s: 0.83, f: 4, z: 10,  r: 1.0, g: 1.0, b: 1.0 },
+  { s: 0.95, f: 5, z: 6,   r: 1.0, g: 1.0, b: 1.0 }, // Vortex pure white
+  { s: 1.00, f: 5, z: 6,   r: 1.0, g: 1.0, b: 1.0 },
 ];
 
-const FORMATION_PRESETS: Record<number, { z: number; r: number; g: number; b: number }> = {
-  0: { z: 7,   r: 1.0,  g: 0.08, b: 0.15 }, // Sphere red
-  1: { z: 9,   r: 0.0,  g: 1.0,  b: 0.64 },
-  2: { z: 8,   r: 0.94, g: 0.94, b: 0.96 },
-  3: { z: 7.5, r: 1.0,  g: 0.0,  b: 0.25 },
-  4: { z: 10,  r: 1.0,  g: 0.75, b: 0.0  },
-  5: { z: 6,   r: 0.78, g: 1.0,  b: 0.0  },
+const FORMATION_PRESETS_DARK: Record<number, { z: number; r: number; g: number; b: number }> = {
+  0: { z: 7,   r: 1.0, g: 1.0, b: 1.0 },
+  1: { z: 9,   r: 1.0, g: 1.0, b: 1.0 },
+  2: { z: 8,   r: 1.0, g: 1.0, b: 1.0 },
+  3: { z: 7.5, r: 1.0, g: 1.0, b: 1.0 },
+  4: { z: 10,  r: 1.0, g: 1.0, b: 1.0 },
+  5: { z: 6,   r: 1.0, g: 1.0, b: 1.0 },
+};
+
+// Keyframes for Light Mode (All particles pure deep solid BLACK on clean white background)
+const KEYFRAMES_LIGHT: Keyframe[] = [
+  { s: 0.00, f: 0, z: 7,   r: 0.04, g: 0.04, b: 0.06 }, // Sphere pure black
+  { s: 0.07, f: 0, z: 7,   r: 0.04, g: 0.04, b: 0.06 },
+  { s: 0.19, f: 1, z: 9,   r: 0.04, g: 0.04, b: 0.06 }, // Helix pure black
+  { s: 0.26, f: 1, z: 9,   r: 0.04, g: 0.04, b: 0.06 },
+  { s: 0.38, f: 2, z: 8,   r: 0.04, g: 0.04, b: 0.06 }, // Grid pure black
+  { s: 0.45, f: 2, z: 8,   r: 0.04, g: 0.04, b: 0.06 },
+  { s: 0.57, f: 3, z: 7.5, r: 0.04, g: 0.04, b: 0.06 }, // Torus pure black
+  { s: 0.64, f: 3, z: 7.5, r: 0.04, g: 0.04, b: 0.06 },
+  { s: 0.76, f: 4, z: 10,  r: 0.04, g: 0.04, b: 0.06 }, // Galaxy pure black
+  { s: 0.83, f: 4, z: 10,  r: 0.04, g: 0.04, b: 0.06 },
+  { s: 0.95, f: 5, z: 6,   r: 0.04, g: 0.04, b: 0.06 }, // Vortex pure black
+  { s: 1.00, f: 5, z: 6,   r: 0.04, g: 0.04, b: 0.06 },
+];
+
+const FORMATION_PRESETS_LIGHT: Record<number, { z: number; r: number; g: number; b: number }> = {
+  0: { z: 7,   r: 0.04, g: 0.04, b: 0.06 },
+  1: { z: 9,   r: 0.04, g: 0.04, b: 0.06 },
+  2: { z: 8,   r: 0.04, g: 0.04, b: 0.06 },
+  3: { z: 7.5, r: 0.04, g: 0.04, b: 0.06 },
+  4: { z: 10,  r: 0.04, g: 0.04, b: 0.06 },
+  5: { z: 6,   r: 0.04, g: 0.04, b: 0.06 },
 };
 
 export default function VoidCanvas({
@@ -157,12 +197,14 @@ export default function VoidCanvas({
   scrollVelocity,
   manualFormationId,
   onActiveFormationChange,
+  isDark = false,
 }: VoidCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stateRef = useRef({
     scrollProgress: 0,
     scrollVelocity: 0,
     manualFormationId: null as number | null,
+    isDark: false,
     currentFormA: 0,
     currentFormB: 0,
     currentMix: 0,
@@ -174,7 +216,8 @@ export default function VoidCanvas({
     stateRef.current.scrollProgress = scrollProgress;
     stateRef.current.scrollVelocity = scrollVelocity;
     stateRef.current.manualFormationId = manualFormationId;
-  }, [scrollProgress, scrollVelocity, manualFormationId]);
+    stateRef.current.isDark = isDark;
+  }, [scrollProgress, scrollVelocity, manualFormationId, isDark]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -187,10 +230,14 @@ export default function VoidCanvas({
       canvas,
       antialias: false,
       powerPreference: 'high-performance',
+      alpha: true,
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setClearColor(0x060606, 1);
+
+    // Initial background clear color based on theme
+    const initialIsDark = document.documentElement.classList.contains('dark');
+    renderer.setClearColor(initialIsDark ? 0x000000 : 0xffffff, 1);
 
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 0, 7);
@@ -223,13 +270,22 @@ export default function VoidCanvas({
         uMouse: { value: new THREE.Vector3(100, 100, 100) },
         uMouseRadius: { value: 4.8 },
         uPointSize: { value: 1.25 },
-        uColorA: { value: new THREE.Color(1.0, 0.08, 0.15) },
-        uColorB: { value: new THREE.Color(1.0, 0.08, 0.15) },
+        uColorA: {
+          value: initialIsDark
+            ? new THREE.Color(1.0, 1.0, 1.0)
+            : new THREE.Color(0.04, 0.04, 0.06),
+        },
+        uColorB: {
+          value: initialIsDark
+            ? new THREE.Color(1.0, 1.0, 1.0)
+            : new THREE.Color(0.04, 0.04, 0.06),
+        },
         uScrollVel: { value: 0 },
+        uIsDark: { value: initialIsDark ? 1.0 : 0.0 },
       },
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: initialIsDark ? THREE.AdditiveBlending : THREE.NormalBlending,
     });
 
     const points = new THREE.Points(geometry, material);
@@ -271,13 +327,13 @@ export default function VoidCanvas({
     window.addEventListener('touchend', handleTouchEnd);
     window.addEventListener('resize', handleResize);
 
-    function computeScrollState(s: number) {
+    function computeScrollState(s: number, currentKeyframes: Keyframe[]) {
       let i = 0;
-      while (i < KEYFRAMES.length - 1 && KEYFRAMES[i + 1].s <= s) {
+      while (i < currentKeyframes.length - 1 && currentKeyframes[i + 1].s <= s) {
         i++;
       }
-      const a = KEYFRAMES[i];
-      const b = KEYFRAMES[Math.min(i + 1, KEYFRAMES.length - 1)];
+      const a = currentKeyframes[i];
+      const b = currentKeyframes[Math.min(i + 1, currentKeyframes.length - 1)];
       const range = b.s - a.s;
       const t = range > 0 ? Math.max(0, Math.min(1, (s - a.s) / range)) : 0;
       return {
@@ -293,17 +349,41 @@ export default function VoidCanvas({
 
     let lastReportedFormation = -1;
     let animId: number;
+    let currentClearR = initialIsDark ? 0.0 : 1.0;
+    let currentClearG = initialIsDark ? 0.0 : 1.0;
+    let currentClearB = initialIsDark ? 0.0 : 1.0;
 
     const loop = () => {
       animId = requestAnimationFrame(loop);
       const time = performance.now() * 0.001;
       const u = material.uniforms;
 
+      // Real-time theme check
+      const currentDark = document.documentElement.classList.contains('dark');
+      u.uIsDark.value = currentDark ? 1.0 : 0.0;
+
+      // Smooth background color interpolation
+      const targetClear = currentDark ? 0.0 : 1.0;
+      currentClearR += (targetClear - currentClearR) * 0.15;
+      currentClearG += (targetClear - currentClearG) * 0.15;
+      currentClearB += (targetClear - currentClearB) * 0.15;
+      renderer.setClearColor(new THREE.Color(currentClearR, currentClearG, currentClearB), 1);
+
+      // Blending switch
+      const targetBlending = currentDark ? THREE.AdditiveBlending : THREE.NormalBlending;
+      if (material.blending !== targetBlending) {
+        material.blending = targetBlending;
+        material.needsUpdate = true;
+      }
+
+      const activeKeyframes = currentDark ? KEYFRAMES_DARK : KEYFRAMES_LIGHT;
+      const activePresets = currentDark ? FORMATION_PRESETS_DARK : FORMATION_PRESETS_LIGHT;
+
       const manualId = stateRef.current.manualFormationId;
       let targetState;
 
       if (manualId !== null && manualId !== undefined) {
-        const preset = FORMATION_PRESETS[manualId] || FORMATION_PRESETS[0];
+        const preset = activePresets[manualId] || activePresets[0];
         targetState = {
           fA: manualId,
           fB: manualId,
@@ -314,7 +394,7 @@ export default function VoidCanvas({
           activeFormation: manualId,
         };
       } else {
-        targetState = computeScrollState(stateRef.current.scrollProgress);
+        targetState = computeScrollState(stateRef.current.scrollProgress, activeKeyframes);
       }
 
       // Smooth transition for uniforms
@@ -370,7 +450,7 @@ export default function VoidCanvas({
   }, [onActiveFormationChange]);
 
   return (
-    <div className="canvas-wrap pointer-events-none fixed inset-0 z-0">
+    <div className="canvas-wrap pointer-events-none fixed inset-0 z-0 transition-colors duration-300">
       <canvas ref={canvasRef} id="voidCanvas" className="block h-full w-full" />
     </div>
   );

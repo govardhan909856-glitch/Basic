@@ -46,11 +46,11 @@ export default function WorkSection({ onSelectProject }: WorkSectionProps) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
-            <div className="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] uppercase text-[#c8ff00] mb-3">
-              <span className="w-6 h-px bg-[#c8ff00] shadow-[0_0_8px_#c8ff00]" />
+            <div className="flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-primary mb-3 font-mono">
+              <span className="w-6 h-px bg-primary shadow-sm" />
               <span>Practical Modules // 90% Everyday Computer Skills</span>
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white">
+            <h2 className="font-sans text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
               Practical Learning Modules
             </h2>
           </div>
@@ -58,8 +58,8 @@ export default function WorkSection({ onSelectProject }: WorkSectionProps) {
 
         {/* Filter Pills / Options */}
         <div className="flex items-center flex-wrap gap-2 mb-8">
-          <span className="text-xs text-neutral-400 font-mono flex items-center gap-1.5 mr-1.5 px-3 py-1.5 rounded-full bg-[#0a0a0a]/70 backdrop-blur-md border border-white/10">
-            <Filter className="w-3.5 h-3.5 text-[#c8ff00]" />
+          <span className="text-xs text-muted-foreground font-mono flex items-center gap-1.5 mr-1.5 px-3 py-1.5 rounded-full bg-card/70 backdrop-blur-md border border-border">
+            <Filter className="w-3.5 h-3.5 text-primary" />
             <span>Category:</span>
           </span>
           {categories.map((cat) => (
@@ -69,10 +69,10 @@ export default function WorkSection({ onSelectProject }: WorkSectionProps) {
                 setActiveCategory(cat);
                 setActiveSlideIndex(0);
               }}
-              className={`interactive-option text-xs font-medium px-4 py-1.5 rounded-full cursor-pointer backdrop-blur-xl ${
+              className={`interactive-option text-xs font-medium px-4 py-1.5 rounded-full cursor-pointer backdrop-blur-xl transition-all ${
                 activeCategory === cat
-                  ? 'bg-[#c8ff00] text-black shadow-[0_0_20px_rgba(200,255,0,0.35)] font-semibold border border-[#c8ff00]'
-                  : 'bg-[#0a0a0a]/80 hover:bg-white/[0.08] text-neutral-300 hover:text-white border border-white/[0.12] hover:border-[#c8ff00]/40'
+                  ? 'bg-primary text-primary-foreground font-semibold border border-primary shadow-sm'
+                  : 'bg-card/80 hover:bg-accent text-muted-foreground hover:text-foreground border border-border hover:border-primary'
               }`}
             >
               {cat}
@@ -81,8 +81,8 @@ export default function WorkSection({ onSelectProject }: WorkSectionProps) {
         </div>
 
         {/* 3D COVERFLOW CAROUSEL */}
-        <div className="relative rounded-3xl bg-black/60 border border-white/[0.12] p-4 sm:p-8 backdrop-blur-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)]">
-          <div className="absolute top-4 left-6 flex items-center gap-2 text-[11px] font-mono text-[#c8ff00]">
+        <div className="relative rounded-3xl bg-card/80 border border-border p-4 sm:p-8 backdrop-blur-2xl overflow-hidden shadow-sm">
+          <div className="absolute top-4 left-6 flex items-center gap-2 text-[11px] font-mono text-primary">
             <Sparkles className="w-3.5 h-3.5" />
             <span>INTERACTIVE 3D PERSPECTIVE // DRAG OR CLICK CARDS</span>
           </div>
@@ -108,8 +108,8 @@ export default function WorkSection({ onSelectProject }: WorkSectionProps) {
         </div>
 
         {/* Interaction Hint Footer */}
-        <div className="mt-8 text-center text-xs text-neutral-500 font-mono flex items-center justify-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse" />
+        <div className="mt-8 text-center text-xs text-muted-foreground font-mono flex items-center justify-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <span>Click any card to open complete step-by-step practical guide and shortcuts.</span>
         </div>
       </div>

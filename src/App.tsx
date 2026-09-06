@@ -20,6 +20,29 @@ export default function App() {
   const [activeFormationId, setActiveFormationId] = useState(0);
   const [manualFormationId, setManualFormationId] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('basics-theme');
+      if (saved === 'dark') return true;
+      if (saved === 'light') return false;
+      return false; // Default: White (Light mode)
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('basics-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('basics-theme', 'light');
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => {
+    setIsDark((prev) => !prev);
+  };
 
   const scrollToContact = () => {
     const el = document.getElementById('contact');
@@ -63,13 +86,14 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#060606] text-[#f0f0f0] selection:bg-[#c8ff00] selection:text-black">
+    <div className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground font-sans transition-colors duration-300">
       {/* ── Background WebGL Three.js Particle System ── */}
       <VoidCanvas
         scrollProgress={scrollProgress}
         scrollVelocity={scrollVelocity}
         manualFormationId={manualFormationId}
         onActiveFormationChange={handleActiveFormationChange}
+        isDark={isDark}
       />
 
       {/* ── Interactive Cursor Particle Follower Trail ── */}
@@ -85,6 +109,8 @@ export default function App() {
       <Navbar
         scrollProgress={scrollProgress}
         onOpenContact={scrollToContact}
+        isDark={isDark}
+        onToggleTheme={toggleTheme}
       />
 
       {/* ── Main Flow ── */}

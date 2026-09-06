@@ -1,13 +1,21 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Menu, X, Sparkles } from 'lucide-react';
+import { ArrowRight, Menu, X, Sparkles, Sun, Moon } from 'lucide-react';
 
 interface NavbarProps {
   scrollProgress: number;
   onOpenContact: () => void;
   onOpenSearch?: () => void;
+  isDark?: boolean;
+  onToggleTheme?: () => void;
 }
 
-export default function Navbar({ scrollProgress, onOpenContact, onOpenSearch }: NavbarProps) {
+export default function Navbar({
+  scrollProgress,
+  onOpenContact,
+  onOpenSearch,
+  isDark = true,
+  onToggleTheme,
+}: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -51,7 +59,7 @@ export default function Navbar({ scrollProgress, onOpenContact, onOpenSearch }: 
       {/* ── Scroll Progress Line ────────────────── */}
       <div
         id="scrollProgress"
-        className="fixed top-0 left-0 z-[999] h-[2px] bg-[#c8ff00] shadow-[0_0_12px_#c8ff00] transition-transform duration-75 ease-out origin-left pointer-events-none"
+        className="fixed top-0 left-0 z-[999] h-[2px] bg-primary shadow-sm transition-transform duration-75 ease-out origin-left pointer-events-none"
         style={{
           width: '100%',
           transform: `scaleX(${Math.max(0, Math.min(1, scrollProgress))})`,
@@ -61,30 +69,24 @@ export default function Navbar({ scrollProgress, onOpenContact, onOpenSearch }: 
       {/* ── Navigation Bar ──────────────────────── */}
       <header
         id="nav"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 py-4 px-5 md:px-10 flex items-center justify-between ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-5 md:px-10 flex items-center justify-between ${
           isScrolled
-            ? 'bg-[#060606]/85 backdrop-blur-2xl border-b border-white/[0.1] shadow-[0_4px_30px_rgba(0,0,0,0.7)] py-3.5'
+            ? 'bg-background/85 backdrop-blur-xl border-b border-border shadow-sm py-3.5'
             : 'bg-transparent py-5'
         }`}
       >
-        {/* Logo & Floating Creator Pill */}
+        {/* Logo */}
         <div className="flex items-center gap-4">
           <a
             href="#"
             id="navLogo"
-            className="font-display font-extrabold text-xl tracking-[0.16em] text-neutral-100 whitespace-nowrap inline-flex items-center group"
+            className="font-sans font-extrabold text-xl tracking-wider text-foreground whitespace-nowrap inline-flex items-center group"
           >
             <span>BASICS</span>
-            <span className="text-[#c8ff00] drop-shadow-[0_0_8px_#c8ff00] transition-transform duration-300 group-hover:scale-125 inline-block">
+            <span className="text-primary transition-transform duration-300 group-hover:scale-125 inline-block">
               .
             </span>
           </a>
-
-          {/* Floating Creator Badge */}
-          <div className="hidden sm:inline-flex floating-creator-name px-3 py-1 rounded-full bg-black/60 border border-[#c8ff00]/40 shadow-[0_0_15px_rgba(200,255,0,0.2)] backdrop-blur-md items-center gap-2 text-[11px] font-mono text-neutral-200">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-ping" />
-            <span>By <strong className="text-[#c8ff00] font-semibold">Govardhan Yadav</strong></span>
-          </div>
         </div>
 
         {/* Desktop Navigation Links */}
@@ -97,20 +99,33 @@ export default function Navbar({ scrollProgress, onOpenContact, onOpenSearch }: 
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              className="text-xs tracking-[0.08em] uppercase text-neutral-400 hover:text-white transition-colors duration-200 relative py-1 group"
+              className="text-xs tracking-wider uppercase text-muted-foreground hover:text-foreground transition-colors duration-200 relative py-1 group font-mono"
             >
               {link.label}
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#c8ff00] transition-all duration-300 group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-primary transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
         </nav>
 
-        {/* Desktop CTA & Mobile Toggle */}
-        <div className="flex items-center gap-3">
+        {/* Desktop CTA, Theme Switcher & Mobile Toggle */}
+        <div className="flex items-center gap-2.5">
+          {/* Light / Dark Mode Switcher */}
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              id="themeToggleBtn"
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="p-2 rounded-full border border-border bg-card/80 hover:bg-accent text-foreground transition-all duration-200 cursor-pointer shadow-sm hover:scale-105"
+              title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+            >
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+          )}
+
           <button
             id="navCta"
             onClick={onOpenContact}
-            className="hidden sm:inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-[#c8ff00] border border-[#c8ff00]/40 hover:border-[#c8ff00] bg-black/60 backdrop-blur-md hover:bg-[#c8ff00]/20 px-4 py-2 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(200,255,0,0.3)] hover:-translate-y-0.5 active:translate-y-0"
+            className="hidden sm:inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-primary-foreground bg-primary hover:opacity-90 px-4 py-2 rounded-full transition-all duration-300 shadow-sm cursor-pointer hover:-translate-y-0.5 active:translate-y-0"
           >
             <span>Contact & Help</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
@@ -121,9 +136,9 @@ export default function Navbar({ scrollProgress, onOpenContact, onOpenSearch }: 
             id="navToggle"
             aria-label="Toggle navigation menu"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-neutral-200 hover:text-[#c8ff00] transition-colors focus:outline-none"
+            className="md:hidden p-2.5 rounded-full bg-card border border-border text-foreground hover:text-primary transition-colors focus:outline-none cursor-pointer"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </header>
@@ -132,10 +147,10 @@ export default function Navbar({ scrollProgress, onOpenContact, onOpenSearch }: 
       {mobileMenuOpen && (
         <div
           id="mobileMenu"
-          className="fixed inset-0 z-40 bg-[#060606]/95 backdrop-blur-2xl flex flex-col justify-center items-center gap-8 md:hidden animate-in fade-in duration-300 px-6 text-center"
+          className="fixed inset-0 z-40 bg-background/95 backdrop-blur-2xl flex flex-col justify-center items-center gap-7 md:hidden animate-in fade-in duration-300 px-6 text-center"
         >
-          <div className="flex items-center gap-2 mb-4 text-[#c8ff00] text-xs font-mono tracking-widest uppercase">
-            <Sparkles className="w-4 h-4" />
+          <div className="flex items-center gap-2 mb-2 text-muted-foreground text-xs font-mono tracking-widest uppercase">
+            <Sparkles className="w-4 h-4 text-primary" />
             <span>Learn Computer Basics the Easy Way</span>
           </div>
 
@@ -147,19 +162,29 @@ export default function Navbar({ scrollProgress, onOpenContact, onOpenSearch }: 
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              className="font-display text-2xl font-bold text-neutral-100 hover:text-[#c8ff00] transition-colors tracking-wide"
+              className="font-sans text-2xl font-bold text-foreground hover:text-primary transition-colors tracking-wide"
             >
               {link.label}
             </a>
           ))}
 
-          <div className="flex flex-col gap-3 mt-4 w-full max-w-xs">
+          <div className="flex flex-col items-center gap-3 mt-4 w-full max-w-xs">
+            {onToggleTheme && (
+              <button
+                onClick={onToggleTheme}
+                className="w-full flex items-center justify-center gap-2 text-xs font-mono py-2.5 rounded-full border border-border bg-card text-foreground"
+              >
+                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                <span>{isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}</span>
+              </button>
+            )}
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenContact();
               }}
-              className="flex items-center justify-center gap-2 font-display text-sm font-semibold tracking-wider text-black bg-[#c8ff00] px-8 py-3 rounded-full shadow-[0_0_25px_rgba(200,255,0,0.3)] hover:scale-105 transition-transform"
+              className="w-full flex items-center justify-center gap-2 font-sans text-sm font-semibold tracking-wider text-primary-foreground bg-primary px-8 py-3 rounded-full shadow-sm hover:scale-105 transition-transform cursor-pointer"
             >
               <span>Contact & Help</span>
               <ArrowRight className="w-4 h-4" />

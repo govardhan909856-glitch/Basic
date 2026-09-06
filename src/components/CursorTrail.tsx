@@ -29,13 +29,23 @@ export default function CursorTrail() {
     const particles: Particle[] = [];
     const maxParticles = 160;
 
-    // Studio color palette for particles
-    const colors = [
-      { fill: '#c8ff00', glow: 'rgba(200, 255, 0, 0.8)' }, // Neon Lime
-      { fill: '#ffffff', glow: 'rgba(255, 255, 255, 0.7)' }, // White Spark
-      { fill: '#00ffa3', glow: 'rgba(0, 255, 163, 0.6)' }, // Cyan Mint
-      { fill: '#ff1a35', glow: 'rgba(255, 26, 53, 0.7)' }, // Crimson Accent
-    ];
+    const isDarkMode = () => document.documentElement.classList.contains('dark');
+
+    // Theme-aligned particle palettes: All pure white in dark mode, All pure black in light mode
+    const getColors = () => {
+      const dark = isDarkMode();
+      return dark
+        ? [
+            { fill: '#ffffff', glow: 'rgba(255, 255, 255, 0.9)' },
+            { fill: '#f4f4f5', glow: 'rgba(244, 244, 245, 0.75)' },
+            { fill: '#e4e4e7', glow: 'rgba(228, 228, 231, 0.6)' },
+          ]
+        : [
+            { fill: '#050505', glow: 'rgba(0, 0, 0, 0.45)' },
+            { fill: '#141416', glow: 'rgba(20, 20, 22, 0.35)' },
+            { fill: '#222225', glow: 'rgba(34, 34, 37, 0.3)' },
+          ];
+    };
 
     let lastMouseX = -100;
     let lastMouseY = -100;
@@ -60,7 +70,8 @@ export default function CursorTrail() {
         particles.shift(); // Remove oldest to maintain performance
       }
 
-      const colObj = colors[Math.random() < 0.65 ? 0 : Math.floor(Math.random() * colors.length)];
+      const currentColors = getColors();
+      const colObj = currentColors[Math.random() < 0.65 ? 0 : Math.floor(Math.random() * currentColors.length)];
       const angle = Math.random() * Math.PI * 2;
       const velocity = (Math.random() * 1.5 + 0.5) * Math.min(speed * 0.15 + 0.8, 4);
 
@@ -121,7 +132,8 @@ export default function CursorTrail() {
       for (let i = 0; i < count; i++) {
         const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.3;
         const speed = Math.random() * 4 + 2;
-        const colObj = colors[Math.floor(Math.random() * colors.length)];
+        const currentColors = getColors();
+        const colObj = currentColors[Math.floor(Math.random() * currentColors.length)];
 
         particles.push({
           x: e.clientX,
@@ -183,6 +195,8 @@ export default function CursorTrail() {
       animId = requestAnimationFrame(render);
       ctx.clearRect(0, 0, width, height);
 
+      const dark = isDarkMode();
+
       // Lerp custom cursor halo towards actual mouse
       if (mouseX > 0 && mouseY > 0) {
         ringX += (mouseX - ringX) * 0.25;
@@ -193,24 +207,24 @@ export default function CursorTrail() {
         ctx.save();
         ctx.beginPath();
         ctx.arc(ringX, ringY, ringRadius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(200, 255, 0, 0.35)';
-        ctx.shadowColor = '#c8ff00';
-        ctx.shadowBlur = 12;
+        ctx.fillStyle = dark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)';
+        ctx.shadowColor = dark ? '#ffffff' : '#000000';
+        ctx.shadowBlur = 10;
         ctx.fill();
 
         // Inner sharp dot
         ctx.beginPath();
         ctx.arc(ringX, ringY, 2, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowBlur = 6;
-        ctx.shadowColor = '#ffffff';
+        ctx.fillStyle = dark ? '#ffffff' : '#09090b';
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = dark ? '#ffffff' : '#09090b';
         ctx.fill();
         ctx.restore();
       }
 
       // Update & Render Trail Particles
       ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
+      ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
 
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];

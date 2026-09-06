@@ -59,30 +59,30 @@ export default function MetricsSection() {
     <section
       ref={sectionRef}
       id="metrics"
-      className="relative z-10 py-20 sm:py-28 px-5 sm:px-8 border-y border-white/[0.08] bg-black/60 backdrop-blur-xl"
+      className="relative z-10 py-20 sm:py-28 px-5 sm:px-8 border-y border-border bg-card/50 backdrop-blur-xl"
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
           {METRICS.map((metric, index) => (
             <div
               key={metric.label}
-              className="interactive-option flex flex-col items-center p-4 sm:p-6 rounded-2xl bg-black/40 backdrop-blur-md border border-white/[0.08] hover:border-[#c8ff00]/30 transition-all duration-300 group cursor-default"
+              className="interactive-option flex flex-col items-center p-4 sm:p-6 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all duration-300 group cursor-default shadow-sm"
             >
               <div className="flex items-baseline justify-center">
-                <span className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#c8ff00] tracking-tight drop-shadow-[0_0_35px_rgba(200,255,0,0.3)]">
+                <span className="font-sans text-4xl sm:text-5xl md:text-6xl font-extrabold text-primary tracking-tight">
                   {counts[index]}
                 </span>
                 {metric.suffix && (
-                  <span className="font-display text-2xl sm:text-3xl font-bold text-[#c8ff00] ml-0.5">
+                  <span className="font-sans text-2xl sm:text-3xl font-bold text-primary ml-0.5">
                     {metric.suffix}
                   </span>
                 )}
               </div>
-              <span className="mt-2 text-xs sm:text-sm font-semibold tracking-wider text-neutral-200 uppercase">
+              <span className="mt-2 text-xs sm:text-sm font-semibold tracking-wider text-foreground uppercase">
                 {metric.label}
               </span>
               {metric.sublabel && (
-                <span className="mt-1 text-[11px] text-neutral-400 font-mono hidden sm:block">
+                <span className="mt-1 text-[11px] text-muted-foreground font-mono hidden sm:block">
                   {metric.sublabel}
                 </span>
               )}

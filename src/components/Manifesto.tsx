@@ -44,15 +44,15 @@ export default function Manifesto() {
     >
       <div className="max-w-4xl mx-auto w-full">
         {/* Section eyebrow */}
-        <div className="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] uppercase text-[#c8ff00] mb-8">
-          <span className="w-6 h-px bg-[#c8ff00] shadow-[0_0_8px_#c8ff00]" />
+        <div className="flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-primary mb-8 font-mono">
+          <span className="w-6 h-px bg-primary shadow-sm" />
           <span>Basics Ethos // Learn Computer Basics the Easy Way</span>
         </div>
 
         {/* Cinematic Manifesto Text */}
         <p
           id="manifestoText"
-          className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-medium leading-[1.38] tracking-tight select-none"
+          className="font-sans text-2xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-medium leading-[1.38] tracking-tight select-none"
         >
           {MANIFESTO_WORDS.map((word, index) => {
             const isIlluminated = index <= illuminatedCount;
@@ -65,10 +65,10 @@ export default function Manifesto() {
                 className={`inline-block mr-2 sm:mr-3.5 mb-2 transition-all duration-300 ${
                   isIlluminated
                     ? isEmphasized
-                      ? 'text-[#c8ff00] drop-shadow-[0_0_20px_rgba(200,255,0,0.35)] font-semibold'
-                      : 'text-neutral-100'
-                    : 'text-neutral-600/40'
-                } ${isCurrent ? 'scale-105' : 'scale-100'} hover:text-[#c8ff00] hover:scale-110 cursor-default`}
+                      ? 'text-primary font-semibold'
+                      : 'text-foreground'
+                    : 'text-muted-foreground/35'
+                } ${isCurrent ? 'scale-105' : 'scale-100'} hover:text-primary hover:scale-110 cursor-default`}
               >
                 {word}
               </span>
@@ -77,9 +77,9 @@ export default function Manifesto() {
         </p>
 
         {/* Studio signature details */}
-        <div className="mt-14 pt-8 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-6 text-xs text-neutral-500 font-mono">
+        <div className="mt-14 pt-8 border-t border-border flex flex-wrap items-center justify-between gap-6 text-xs text-muted-foreground font-mono">
           <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
             <span>BASICS LEARNING // 90% PRACTICAL &bull; 10% HARDWARE INTRO</span>
           </div>
           <div className="tracking-widest uppercase">

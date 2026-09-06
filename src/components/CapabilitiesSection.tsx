@@ -53,14 +53,14 @@ export default function CapabilitiesSection({ onOpenProjectWithCategory }: Capab
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="mb-14">
-          <div className="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] uppercase text-[#c8ff00] mb-3">
-            <span className="w-6 h-px bg-[#c8ff00] shadow-[0_0_8px_#c8ff00]" />
+          <div className="flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-primary mb-3 font-mono">
+            <span className="w-6 h-px bg-primary shadow-sm" />
             <span>Website Mission // Daily Life Computer Confidence</span>
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-4">
+          <h2 className="font-sans text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-4">
             Essential Computer Skills for Everyday Life
           </h2>
-          <p className="text-neutral-400 max-w-3xl text-sm sm:text-base leading-relaxed">
+          <p className="text-muted-foreground max-w-3xl text-sm sm:text-base leading-relaxed">
             The core purpose of this platform is to provide beginner-friendly, real-world digital confidence. Rather than getting bogged down in abstract theory, these five core pillars focus on the practical computer tasks you encounter every single day—at college, in the office, and at home.
           </p>
         </div>
@@ -76,24 +76,24 @@ export default function CapabilitiesSection({ onOpenProjectWithCategory }: Capab
                   cardRefs.current[index] = el;
                 }}
                 onMouseMove={(e) => handleMouseMove(e, index)}
-                className="group relative rounded-xl p-7 sm:p-9 bg-[#0a0a0a]/80 backdrop-blur-xl hover:bg-[#0f0f0f]/90 border border-white/[0.12] hover:border-[#c8ff00]/40 transition-all duration-300 floating-option interactive-option shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(200,255,0,0.12)] overflow-hidden flex flex-col justify-between cursor-pointer"
+                className="group relative rounded-xl p-7 sm:p-9 bg-card/90 backdrop-blur-xl hover:bg-accent/40 border border-border hover:border-primary transition-all duration-300 floating-option interactive-option shadow-sm overflow-hidden flex flex-col justify-between cursor-pointer"
               >
                 {/* Radial Mouse Spotlight Overlay */}
                 <div
                   className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
                   style={{
                     background:
-                      'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(200, 255, 0, 0.08), transparent 60%)',
+                      'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklch, var(--primary) 8%, transparent), transparent 60%)',
                   }}
                 />
 
                 <div>
                   {/* Top Bar: Number & Icon */}
                   <div className="flex items-center justify-between mb-6">
-                    <span className="font-display text-xs font-mono font-bold tracking-widest text-[#c8ff00]/70">
+                    <span className="font-mono text-xs font-bold tracking-widest text-primary/80">
                       {cap.number}
                     </span>
-                    <div className="p-2.5 rounded-xl bg-black/60 backdrop-blur-md text-[#c8ff00] border border-[#c8ff00]/30 group-hover:bg-[#c8ff00] group-hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(200,255,0,0.15)]">
+                    <div className="p-2.5 rounded-xl bg-background text-primary border border-border group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-sm">
                       <IconComponent className="w-5 h-5" />
                     </div>
                   </div>
@@ -101,31 +101,31 @@ export default function CapabilitiesSection({ onOpenProjectWithCategory }: Capab
                   {/* Title with scramble effect */}
                   <h3
                     onMouseEnter={(e) => handleMouseEnter(e, cap.title)}
-                    className="font-display text-xl sm:text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-[#c8ff00] transition-colors duration-200 cursor-default"
+                    className="font-sans text-xl sm:text-2xl font-bold text-foreground mb-3 tracking-tight group-hover:text-primary transition-colors duration-200 cursor-default"
                   >
                     {cap.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-neutral-300 font-light leading-relaxed mb-6">
+                  <p className="text-sm text-muted-foreground font-light leading-relaxed mb-6">
                     {cap.description}
                   </p>
                 </div>
 
                 {/* Tech Tags / Options */}
-                <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-2">
+                <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-2">
                   <div className="flex flex-wrap gap-1.5">
                     {cap.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="interactive-option text-[11px] font-mono tracking-wider text-neutral-300 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/[0.1] hover:border-[#c8ff00]/30 hover:text-white transition-all cursor-default"
+                        className="interactive-option text-[11px] font-mono tracking-wider text-muted-foreground px-2.5 py-1 rounded-md bg-muted/60 backdrop-blur-md border border-border hover:border-primary hover:text-foreground transition-all cursor-default"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="text-neutral-500 group-hover:text-[#c8ff00] transition-colors">
+                  <div className="text-muted-foreground group-hover:text-primary transition-colors">
                     <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                 </div>

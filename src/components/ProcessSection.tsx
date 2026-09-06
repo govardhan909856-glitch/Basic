@@ -7,11 +7,11 @@ export default function ProcessSection() {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="mb-14">
-          <div className="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] uppercase text-[#c8ff00] mb-3">
-            <span className="w-6 h-px bg-[#c8ff00] shadow-[0_0_8px_#c8ff00]" />
+          <div className="flex items-center gap-3 text-xs font-semibold tracking-widest uppercase text-primary mb-3 font-mono">
+            <span className="w-6 h-px bg-primary shadow-sm" />
             <span>Step-by-Step Path // Learn Computer Basics the Easy Way</span>
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white">
+          <h2 className="font-sans text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
             4-Step Computer Basics Learning Path
           </h2>
         </div>
@@ -21,34 +21,34 @@ export default function ProcessSection() {
           {PROCESS_STEPS.map((step: ProcessStep) => (
             <div
               key={step.number}
-              className="group relative p-6 sm:p-7 rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-2xl border-l-2 border-l-[#c8ff00]/40 hover:border-l-[#c8ff00] border-y border-r border-white/[0.12] hover:border-white/[0.2] shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(200,255,0,0.12)] transition-all duration-300 hover:bg-[#0f0f0f]/90 floating-option interactive-option cursor-pointer flex flex-col justify-between"
+              className="group relative p-6 sm:p-7 rounded-2xl bg-card/90 backdrop-blur-2xl border-l-2 border-l-primary/40 hover:border-l-primary border-y border-r border-border shadow-sm transition-all duration-300 hover:bg-accent/40 floating-option interactive-option cursor-pointer flex flex-col justify-between"
             >
               <div>
                 {/* Step Number */}
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-display text-4xl sm:text-5xl font-extrabold text-[#c8ff00]/30 group-hover:text-[#c8ff00] transition-colors duration-300 tracking-tighter">
+                  <span className="font-mono text-4xl sm:text-5xl font-extrabold text-primary/40 group-hover:text-primary transition-colors duration-300 tracking-tighter">
                     {step.number}
                   </span>
-                  <span className="text-[10px] font-mono tracking-widest uppercase text-[#c8ff00] px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10">
+                  <span className="text-[10px] font-mono tracking-widest uppercase text-primary px-2.5 py-1 rounded-full bg-muted border border-border">
                     {step.phase}
                   </span>
                 </div>
 
                 {/* Step Title */}
-                <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-[#c8ff00] transition-colors">
+                <h3 className="font-sans text-xl sm:text-2xl font-bold text-foreground mb-3 tracking-tight group-hover:text-primary transition-colors">
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-light">
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light">
                   {step.description}
                 </p>
               </div>
 
               {/* Status Indicator */}
-              <div className="mt-8 pt-4 border-t border-white/[0.04] flex items-center justify-between text-[11px] font-mono text-neutral-500">
+              <div className="mt-8 pt-4 border-t border-border flex items-center justify-between text-[11px] font-mono text-muted-foreground">
                 <span>PHASE {step.number}</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-[#c8ff00] transition-colors shadow-[0_0_8px_#c8ff00]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-border group-hover:bg-primary transition-colors shadow-sm" />
               </div>
             </div>
           ))}

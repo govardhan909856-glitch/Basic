@@ -18,22 +18,22 @@ export default function FormationControls({
   return (
     <aside
       aria-label="3D Particle Controls"
-      className="fixed bottom-5 right-5 z-40 hidden sm:flex items-center gap-2 p-1.5 rounded-full bg-black/80 backdrop-blur-2xl border border-white/[0.15] shadow-[0_4px_30px_rgba(0,0,0,0.8)]"
+      className="fixed bottom-5 right-5 z-40 hidden sm:flex items-center gap-2 p-1.5 rounded-full bg-card/90 backdrop-blur-2xl border border-border shadow-lg"
     >
       {/* Current State Display */}
       <div className="flex items-center gap-2 px-3 py-1 text-[11px] font-mono">
         <span
-          className="w-2 h-2 rounded-full transition-colors duration-300 shadow-[0_0_8px_currentColor]"
+          className="w-2 h-2 rounded-full transition-colors duration-300"
           style={{ backgroundColor: currentFormation.colorHex, color: currentFormation.colorHex }}
         />
-        <span className="text-neutral-400">SHADER:</span>
-        <span className="text-white font-bold tracking-wider uppercase">
+        <span className="text-muted-foreground">SHADER:</span>
+        <span className="text-foreground font-bold tracking-wider uppercase">
           {currentFormation.name}
         </span>
       </div>
 
       {/* Mode / Preset Switchers */}
-      <div className="flex items-center gap-1 border-l border-white/10 pl-2 pr-1">
+      <div className="flex items-center gap-1 border-l border-border pl-2 pr-1">
         {FORMATIONS.map((f) => (
           <button
             key={f.id}
@@ -41,8 +41,8 @@ export default function FormationControls({
             title={`${f.name} Formation: ${f.description}`}
             className={`w-6 h-6 rounded-full text-[10px] font-mono flex items-center justify-center transition-all ${
               manualFormationId === f.id
-                ? 'bg-[#c8ff00] text-black font-bold shadow-[0_0_10px_rgba(200,255,0,0.4)]'
-                : 'text-neutral-400 hover:text-white hover:bg-white/10'
+                ? 'bg-primary text-primary-foreground font-bold shadow-sm'
+                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
             }`}
           >
             {f.id + 1}
@@ -55,8 +55,8 @@ export default function FormationControls({
           title="Sync particles with page scroll"
           className={`text-[10px] font-mono uppercase px-2 py-1 rounded-full transition-all flex items-center gap-1 ${
             isAuto
-              ? 'bg-white/15 text-[#c8ff00] font-semibold'
-              : 'text-neutral-400 hover:text-white hover:bg-white/10'
+              ? 'bg-muted text-primary font-semibold'
+              : 'text-muted-foreground hover:text-foreground hover:bg-muted'
           }`}
         >
           <RotateCcw className="w-2.5 h-2.5" />

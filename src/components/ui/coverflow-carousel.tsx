@@ -323,7 +323,7 @@ export function CoverflowCarousel({
                   }
                 }}
                 className={cn(
-                  "absolute left-1/2 top-0 aspect-square overflow-hidden rounded-2xl bg-muted shadow-2xl will-change-transform cursor-pointer border border-white/10 hover:border-[#c8ff00]/60 transition-colors",
+                  "absolute left-1/2 top-0 aspect-square overflow-hidden rounded-2xl bg-muted shadow-lg will-change-transform cursor-pointer border border-border hover:border-primary transition-colors",
                   cardClassName,
                 )}
                 style={{ width: "var(--cf-card)" }}
@@ -341,7 +341,7 @@ export function CoverflowCarousel({
                 {slide.iconName && SLIDE_ICONS[slide.iconName] && (() => {
                   const SlideIcon = SLIDE_ICONS[slide.iconName];
                   return (
-                    <div className="absolute top-3 right-3 z-10 p-2.5 rounded-xl bg-black/80 backdrop-blur-xl border border-white/25 text-[#c8ff00] shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+                    <div className="absolute top-3 right-3 z-10 p-2.5 rounded-xl bg-card/90 backdrop-blur-xl border border-border text-primary shadow-md">
                       <SlideIcon className="w-4 h-4" />
                     </div>
                   );
@@ -349,7 +349,7 @@ export function CoverflowCarousel({
 
                 {slide.title && (
                   <div className="absolute bottom-3 left-3 right-3 pointer-events-none">
-                    <span className="text-[10px] font-mono tracking-wider uppercase text-[#c8ff00] block mb-0.5">
+                    <span className="text-[10px] font-mono tracking-wider uppercase text-primary block mb-0.5">
                       {slide.subtitle || "Component"}
                     </span>
                     <p className="text-xs sm:text-sm font-bold text-white line-clamp-1">
@@ -368,7 +368,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Previous slide"
               onClick={() => nudge(-1)}
-              className="interactive-option absolute left-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-black/80 border border-white/25 p-3 text-white backdrop-blur-2xl transition hover:bg-[#c8ff00] hover:text-black cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.85)]"
+              className="interactive-option absolute left-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-card/90 border border-border p-3 text-foreground backdrop-blur-2xl transition hover:bg-primary hover:text-primary-foreground cursor-pointer shadow-md"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -376,7 +376,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Next slide"
               onClick={() => nudge(1)}
-              className="interactive-option absolute right-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-black/80 border border-white/25 p-3 text-white backdrop-blur-2xl transition hover:bg-[#c8ff00] hover:text-black cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.85)]"
+              className="interactive-option absolute right-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-card/90 border border-border p-3 text-foreground backdrop-blur-2xl transition hover:bg-primary hover:text-primary-foreground cursor-pointer shadow-md"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -390,29 +390,29 @@ export function CoverflowCarousel({
           className="mt-4 flex flex-col items-center px-6 duration-300 animate-in fade-in"
         >
           <div className="text-center flex flex-col items-center">
-            <span className="text-xs font-mono tracking-widest text-[#c8ff00] uppercase font-semibold">
+            <span className="text-xs font-mono tracking-widest text-primary uppercase font-semibold">
               {active.subtitle || "PRACTICAL SKILL"}
             </span>
             <div className="flex items-center justify-center gap-2.5 mt-1">
               {active.iconName && SLIDE_ICONS[active.iconName] && (() => {
                 const ActiveIcon = SLIDE_ICONS[active.iconName];
                 return (
-                  <span className="p-2 rounded-xl bg-black/70 backdrop-blur-xl border border-[#c8ff00]/40 text-[#c8ff00] shadow-[0_0_15px_rgba(200,255,0,0.2)]">
+                  <span className="p-2 rounded-xl bg-card backdrop-blur-xl border border-border text-primary shadow-sm">
                     <ActiveIcon className="w-5 h-5" />
                   </span>
                 );
               })()}
-              <p className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+              <p className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
                 {active.title}
               </p>
             </div>
           </div>
           {active.meta && active.meta.length > 0 && (
-            <dl className="mt-4 w-full max-w-md text-xs font-mono grid grid-cols-1 sm:grid-cols-3 gap-2 bg-black/75 backdrop-blur-xl border border-white/[0.15] p-3.5 rounded-2xl shadow-lg floating-option interactive-option cursor-pointer">
+            <dl className="mt-4 w-full max-w-md text-xs font-mono grid grid-cols-1 sm:grid-cols-3 gap-2 bg-card/85 backdrop-blur-xl border border-border p-3.5 rounded-2xl shadow-sm floating-option interactive-option cursor-pointer">
               {active.meta.map((row) => (
-                <div key={row.label} className="flex flex-col items-center text-center p-2 rounded-xl transition-all duration-200 hover:bg-white/[0.06] floating-option interactive-option cursor-pointer">
-                  <dt className="text-neutral-400 text-[10px] uppercase tracking-wider">{row.label}</dt>
-                  <dd className="font-semibold text-white mt-0.5">{row.value}</dd>
+                <div key={row.label} className="flex flex-col items-center text-center p-2 rounded-xl transition-all duration-200 hover:bg-muted floating-option interactive-option cursor-pointer">
+                  <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">{row.label}</dt>
+                  <dd className="font-semibold text-foreground mt-0.5">{row.value}</dd>
                 </div>
               ))}
             </dl>
@@ -431,7 +431,7 @@ export function CoverflowCarousel({
               onClick={() => goTo(index)}
               className={cn(
                 "size-2.5 rounded-full transition-all cursor-pointer",
-                index === selected ? "bg-[#c8ff00] w-6" : "bg-white/30 hover:bg-white/60",
+                index === selected ? "bg-primary w-6" : "bg-muted-foreground/30 hover:bg-muted-foreground/60",
               )}
             />
           ))}

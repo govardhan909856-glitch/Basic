@@ -300,7 +300,7 @@ export default function ComputerKnowledgeSearch({
 
     // Instant direct answer for creator and website purpose queries
     if (isCreatorOrPurposeQuery(q)) {
-      const creatorAnswer = `### 🌐 BASICS वेबसाइट एवं AI के बारे में\n\n- **निर्माता (Creator):** यह वेबसाइट और इसका AI **गोवर्धन यादव (Govardhan Yadav)** ने बनाई है।\n- **उद्देश्य (Purpose):** इस वेबसाइट का मुख्य उद्देश्य **बिगिनर्स (Beginners) और बच्चों को कंप्यूटर के बेसिक्स सिखाना** तथा बच्चों को कंप्यूटर के उपयोग में सक्षम बनाना है।\n- **यह किस काम के लिए बनाई गई है?**\n  1. **कंप्यूटर के बुनियादी कौशल:** कंप्यूटर चालू करने से लेकर विंडोज नेविगेशन, कीबोर्ड शॉर्टकट्स और फाइल मैनेजमेंट को सरल तरीके से सिखाना।\n  2. **डिजिटल ज्ञान व दक्षता:** बच्चों और नए सीखने वालों को तकनीक और कंप्यूटर के आवश्यक सिद्धांतों से परिचित कराना।\n  3. **सटीक AI समाधान:** कंप्यूटर से जुड़ा कोई भी सवाल पूछने पर तुरंत और सटीक समाधान प्रदान करना।\n\nगोवर्धन यादव ने इसे खासतौर पर बच्चों और नए सीखने वालों के ज्ञान और आत्मविश्वास को बढ़ाने के लिए बनाया है।`;
+      const creatorAnswer = `### 🌐 BASICS वेबसाइट एवं AI के बारे में\n\n- **निर्माता (Creator):** यह वेबसाइट और इसका AI **BASICS टीम** द्वारा विकसित किया गया है।\n- **उद्देश्य (Purpose):** इस वेबसाइट का मुख्य उद्देश्य **बिगिनर्स (Beginners) और बच्चों को कंप्यूटर के बेसिक्स सिखाना** तथा बच्चों को कंप्यूटर के उपयोग में सक्षम बनाना है।\n- **यह किस काम के लिए बनाई गई है?**\n  1. **कंप्यूटर के बुनियादी कौशल:** कंप्यूटर चालू करने से लेकर विंडोज नेविगेशन, कीबोर्ड शॉर्टकट्स और फाइल मैनेजमेंट को सरल तरीके से सिखाना।\n  2. **डिजिटल ज्ञान व दक्षता:** बच्चों और नए सीखने वालों को तकनीक और कंप्यूटर के आवश्यक सिद्धांतों से परिचित कराना।\n  3. **सटीक AI समाधान:** कंप्यूटर से जुड़ा कोई भी सवाल पूछने पर तुरंत और सटीक समाधान प्रदान करना।\n\nइसे खासतौर पर बच्चों और नए सीखने वालों के डिजिटल ज्ञान और आत्मविश्वास को बढ़ाने के लिए बनाया गया है।`;
 
       const newResult: SearchResult = {
         query: q,
@@ -386,7 +386,7 @@ export default function ComputerKnowledgeSearch({
         onSubmit={onSubmit}
         className="relative flex items-center w-full"
       >
-        <div className="absolute left-4 text-[#c8ff00] pointer-events-none flex items-center">
+        <div className="absolute left-4 text-primary pointer-events-none flex items-center">
           <Search className="w-4 h-4" />
         </div>
 
@@ -402,11 +402,11 @@ export default function ComputerKnowledgeSearch({
             if (!query && !result) setIsDropdownOpen(true);
           }}
           placeholder="कंप्यूटर से जुड़ा कोई भी सवाल पूछें (उदा. RAM क्या है?)..."
-          className={`w-full bg-[#0d0d0d]/85 backdrop-blur-2xl hover:bg-[#141414]/90 focus:bg-[#080808]/95 text-white placeholder-neutral-400 pl-11 pr-24 py-3.5 rounded-full border ${
+          className={`w-full bg-card/90 backdrop-blur-2xl text-foreground placeholder-muted-foreground pl-11 pr-24 py-3.5 rounded-full border ${
             isListening
-              ? 'border-[#c8ff00] ring-2 ring-[#c8ff00]/40'
-              : 'border-[#c8ff00]/40 focus:border-[#c8ff00]'
-          } focus:outline-none text-sm transition-all shadow-[0_8px_30px_rgba(0,0,0,0.7)]`}
+              ? 'border-primary ring-2 ring-primary/40'
+              : 'border-border focus:border-primary'
+          } focus:outline-none text-sm transition-all shadow-sm`}
         />
 
         <div className="absolute right-1.5 flex items-center gap-1">
@@ -418,7 +418,7 @@ export default function ComputerKnowledgeSearch({
                 setQuery('');
                 setIsDropdownOpen(true);
               }}
-              className="p-1 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+              className="p-1 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               title="हटाएं"
             >
               <X className="w-3.5 h-3.5" />
@@ -431,8 +431,8 @@ export default function ComputerKnowledgeSearch({
             onClick={toggleMic}
             className={`p-1.5 rounded-full transition-all cursor-pointer flex items-center justify-center backdrop-blur-md ${
               isListening
-                ? 'bg-red-600 text-white animate-pulse shadow-[0_0_15px_rgba(220,38,38,0.9)]'
-                : 'text-neutral-300 hover:text-[#c8ff00] bg-black/40 hover:bg-[#c8ff00]/15 border border-white/10 hover:border-[#c8ff00]/40'
+                ? 'bg-destructive text-destructive-foreground animate-pulse shadow-md'
+                : 'text-muted-foreground hover:text-primary bg-muted/60 hover:bg-primary/15 border border-border hover:border-primary'
             }`}
             title={isListening ? 'माइक बंद करें' : 'बोलकर पूछें'}
             aria-label="Voice Mic"
@@ -440,7 +440,7 @@ export default function ComputerKnowledgeSearch({
             {isListening ? (
               <MicOff className="w-4 h-4" />
             ) : (
-              <Mic className="w-4 h-4 text-[#c8ff00]" />
+              <Mic className="w-4 h-4 text-primary" />
             )}
           </button>
 
@@ -448,7 +448,7 @@ export default function ComputerKnowledgeSearch({
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="rounded-full bg-[#c8ff00] text-black font-bold hover:bg-[#d6ff33] disabled:opacity-35 transition-all cursor-pointer shadow-[0_0_15px_rgba(200,255,0,0.3)] px-4 py-1.5 text-xs"
+            className="rounded-full bg-primary text-primary-foreground font-bold hover:opacity-90 disabled:opacity-35 transition-all cursor-pointer shadow-sm px-4 py-1.5 text-xs"
           >
             {loading ? <Loader2 className="w-3 h-3 animate-spin" /> : 'Ask'}
           </button>
@@ -457,14 +457,14 @@ export default function ComputerKnowledgeSearch({
 
       {/* ── Active Listening Feedback Pod ── */}
       {isListening && (
-        <div className="mt-2 p-3 bg-[#0c0c0c]/95 backdrop-blur-2xl border border-[#c8ff00]/60 rounded-2xl text-xs text-[#c8ff00] font-mono shadow-[0_12px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(200,255,0,0.15)] animate-in fade-in slide-in-from-top-1 duration-150 text-left">
+        <div className="mt-2 p-3 bg-card border border-primary/60 rounded-2xl text-xs text-primary font-mono shadow-md animate-in fade-in slide-in-from-top-1 duration-150 text-left">
           <div className="flex items-center justify-between gap-2">
             <span className="flex items-center gap-2">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-destructive"></span>
               </span>
-              <span className="font-semibold text-white">बोलिए, मैं सुन रहा हूँ...</span>
+              <span className="font-semibold text-foreground">बोलिए, मैं सुन रहा हूँ...</span>
             </span>
             <div className="flex items-center gap-1.5">
               {query.trim() && (
@@ -474,7 +474,7 @@ export default function ComputerKnowledgeSearch({
                     stopListening();
                     handleSearch(query);
                   }}
-                  className="px-2.5 py-1 rounded-lg bg-[#c8ff00] text-black font-bold text-[11px] hover:bg-[#d4ff33] cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg bg-primary text-primary-foreground font-bold text-[11px] hover:opacity-90 cursor-pointer"
                 >
                   पूछें (Search)
                 </button>
@@ -482,14 +482,14 @@ export default function ComputerKnowledgeSearch({
               <button
                 type="button"
                 onClick={stopListening}
-                className="text-neutral-400 hover:text-white text-[11px] px-2 py-1 rounded-lg bg-white/10 cursor-pointer"
+                className="text-muted-foreground hover:text-foreground text-[11px] px-2 py-1 rounded-lg bg-muted cursor-pointer"
               >
                 रद्द करें
               </button>
             </div>
           </div>
           {query.trim() && (
-            <div className="mt-2 text-xs text-neutral-200 bg-white/[0.06] px-3 py-1.5 rounded-xl border border-white/10 font-sans break-words">
+            <div className="mt-2 text-xs text-foreground bg-muted/60 px-3 py-1.5 rounded-xl border border-border font-sans break-words">
               "{query}"
             </div>
           )}
@@ -498,9 +498,9 @@ export default function ComputerKnowledgeSearch({
 
       {/* ── Voice Notice ── */}
       {voiceNotice && !isListening && (
-        <div className="mt-2 flex items-center justify-between px-3 py-1.5 bg-[#1a140b]/95 backdrop-blur-xl border border-amber-500/40 rounded-xl text-xs text-amber-200 shadow-lg text-left">
+        <div className="mt-2 flex items-center justify-between px-3 py-1.5 bg-card/95 backdrop-blur-xl border border-border rounded-xl text-xs text-foreground shadow-sm text-left">
           <span>{voiceNotice}</span>
-          <button onClick={() => setVoiceNotice(null)} className="p-0.5 text-neutral-400 hover:text-white cursor-pointer">
+          <button onClick={() => setVoiceNotice(null)} className="p-0.5 text-muted-foreground hover:text-foreground cursor-pointer">
             <X className="w-3 h-3" />
           </button>
         </div>
@@ -509,10 +509,10 @@ export default function ComputerKnowledgeSearch({
       {/* ── Quick Example Questions (Dropdown directly below search bar) ── */}
       {isDropdownOpen && !query && !result && !loading && !isListening && (
         <div
-          className="mt-2 w-full bg-[#0c0c0c]/95 border border-white/20 rounded-2xl p-3.5 shadow-[0_20px_50px_rgba(0,0,0,0.9)] backdrop-blur-2xl text-left animate-in fade-in slide-in-from-top-1 duration-150"
+          className="mt-2 w-full bg-card/95 border border-border rounded-2xl p-3.5 shadow-lg backdrop-blur-2xl text-left animate-in fade-in slide-in-from-top-1 duration-150"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="text-[11px] font-medium text-neutral-400 px-2 pb-1.5 mb-1.5 border-b border-white/10">
+          <div className="text-[11px] font-medium text-muted-foreground px-2 pb-1.5 mb-1.5 border-b border-border">
             उदाहरण सवाल (Click to ask):
           </div>
           <div className="space-y-1.5">
@@ -521,7 +521,7 @@ export default function ComputerKnowledgeSearch({
                 key={item}
                 type="button"
                 onClick={() => handleSearch(item)}
-                className="w-full text-left px-3 py-2 rounded-xl bg-black/40 backdrop-blur-md hover:bg-[#c8ff00]/15 hover:border-[#c8ff00]/30 text-neutral-200 hover:text-white text-xs border border-white/5 cursor-pointer transition-colors"
+                className="w-full text-left px-3 py-2 rounded-xl bg-muted/50 backdrop-blur-md hover:bg-primary/15 hover:border-primary/30 text-foreground text-xs border border-border cursor-pointer transition-colors"
               >
                 {item}
               </button>
@@ -533,24 +533,24 @@ export default function ComputerKnowledgeSearch({
       {/* ── Inline Loading Indicator (Right below search bar) ── */}
       {loading && (
         <div
-          className="mt-3.5 w-full bg-[#0d0d0d]/95 backdrop-blur-2xl border border-[#c8ff00]/40 rounded-2xl p-6 shadow-2xl text-center animate-in fade-in slide-in-from-top-2 duration-150"
+          className="mt-3.5 w-full bg-card/95 backdrop-blur-2xl border border-primary/40 rounded-2xl p-6 shadow-lg text-center animate-in fade-in slide-in-from-top-2 duration-150"
           onClick={(e) => e.stopPropagation()}
         >
-          <Loader2 className="w-6 h-6 animate-spin text-[#c8ff00] mx-auto mb-2" />
-          <h4 className="text-sm font-bold text-white mb-1">उत्तर तैयार हो रहा है...</h4>
-          <p className="text-xs text-neutral-400 truncate">"{query}"</p>
+          <Loader2 className="w-6 h-6 animate-spin text-primary mx-auto mb-2" />
+          <h4 className="text-sm font-bold text-foreground mb-1">उत्तर तैयार हो रहा है...</h4>
+          <p className="text-xs text-muted-foreground truncate">"{query}"</p>
         </div>
       )}
 
       {/* ── Inline Error Message (Right below search bar) ── */}
       {error && !loading && (
         <div
-          className="mt-3.5 w-full bg-red-950/95 border border-red-500/40 rounded-2xl p-4 shadow-2xl text-red-200 text-left animate-in fade-in slide-in-from-top-2 duration-150"
+          className="mt-3.5 w-full bg-destructive/10 border border-destructive/40 rounded-2xl p-4 shadow-lg text-destructive text-left animate-in fade-in slide-in-from-top-2 duration-150"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-bold text-red-400">सूचना</span>
-            <button onClick={dismissAll} className="text-red-400 hover:text-white cursor-pointer p-0.5">
+            <span className="text-xs font-bold">सूचना</span>
+            <button onClick={dismissAll} className="text-destructive hover:opacity-80 cursor-pointer p-0.5">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -562,16 +562,16 @@ export default function ComputerKnowledgeSearch({
       {result && !loading && (
         <div
           id="searchResultCard"
-          className="mt-3.5 w-full bg-[#0a0a0a]/95 backdrop-blur-2xl border border-[#c8ff00]/40 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] overflow-hidden text-left animate-in fade-in slide-in-from-top-2 duration-200"
+          className="mt-3.5 w-full bg-card/95 backdrop-blur-2xl border border-primary/40 rounded-2xl shadow-lg overflow-hidden text-left animate-in fade-in slide-in-from-top-2 duration-200"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Card Header: Question Title, Copy, Close */}
-          <div className="bg-[#121212]/90 border-b border-white/10 px-4 sm:px-5 py-3.5 flex items-center justify-between gap-3">
+          <div className="bg-muted/50 border-b border-border px-4 sm:px-5 py-3.5 flex items-center justify-between gap-3">
             <div className="truncate">
-              <span className="text-[10px] font-mono tracking-wider uppercase text-[#c8ff00] block">
+              <span className="text-[10px] font-mono tracking-wider uppercase text-primary block">
                 सवाल / QUESTION
               </span>
-              <h3 className="text-sm sm:text-base font-bold text-white truncate">
+              <h3 className="text-sm sm:text-base font-bold text-foreground truncate">
                 {result.query}
               </h3>
             </div>
@@ -581,13 +581,13 @@ export default function ComputerKnowledgeSearch({
               <button
                 type="button"
                 onClick={handleCopy}
-                className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/15 text-neutral-300 hover:text-white border border-white/10 transition-colors cursor-pointer font-medium"
+                className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-xl bg-background hover:bg-muted text-foreground border border-border transition-colors cursor-pointer font-medium"
                 title="उत्तर कॉपी करें"
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-[#c8ff00]" />
-                    <span className="text-[#c8ff00] text-[11px]">कॉपी हुआ</span>
+                    <Check className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-primary text-[11px]">कॉपी हुआ</span>
                   </>
                 ) : (
                   <>
@@ -601,7 +601,7 @@ export default function ComputerKnowledgeSearch({
               <button
                 type="button"
                 onClick={dismissAll}
-                className="p-1.5 rounded-xl bg-white/5 hover:bg-[#c8ff00] text-neutral-400 hover:text-black transition-colors border border-white/10 cursor-pointer"
+                className="p-1.5 rounded-xl bg-background hover:bg-primary text-muted-foreground hover:text-primary-foreground transition-colors border border-border cursor-pointer"
                 title="हटाएं / Close"
               >
                 <X className="w-4 h-4" />
@@ -611,7 +611,7 @@ export default function ComputerKnowledgeSearch({
 
           {/* Answer Text in Clean Markdown Typography */}
           <div className="p-4 sm:p-6 max-h-[65vh] overflow-y-auto">
-            <div className="prose prose-invert max-w-none text-neutral-200 text-xs sm:text-sm leading-relaxed space-y-3.5 [&_h1]:text-base sm:[&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-white [&_h2]:text-sm sm:[&_h2]:text-base [&_h2]:font-bold [&_h2]:text-[#c8ff00] [&_h3]:text-xs sm:[&_h3]:text-sm [&_h3]:font-semibold [&_p]:mb-2.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_code]:bg-white/10 [&_code]:text-[#c8ff00] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_strong]:text-white [&_table]:w-full [&_table]:border-collapse [&_table]:my-3 [&_th]:border [&_th]:border-white/20 [&_th]:p-2 [&_th]:bg-white/5 [&_th]:text-[#c8ff00] [&_td]:border [&_td]:border-white/10 [&_td]:p-2">
+            <div className="prose prose-neutral dark:prose-invert max-w-none text-foreground text-xs sm:text-sm leading-relaxed space-y-3.5 [&_h1]:text-base sm:[&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-foreground [&_h2]:text-sm sm:[&_h2]:text-base [&_h2]:font-bold [&_h2]:text-primary [&_h3]:text-xs sm:[&_h3]:text-sm [&_h3]:font-semibold [&_p]:mb-2.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_code]:bg-muted [&_code]:text-primary [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_strong]:text-foreground [&_table]:w-full [&_table]:border-collapse [&_table]:my-3 [&_th]:border [&_th]:border-border [&_th]:p-2 [&_th]:bg-muted [&_th]:text-primary [&_td]:border [&_td]:border-border [&_td]:p-2">
               <Markdown>{result.answer}</Markdown>
             </div>
           </div>
@@ -621,21 +621,18 @@ export default function ComputerKnowledgeSearch({
       {/* ── Microphone Permission Explanation & Request Modal ── */}
       {showPermissionModal && (
         <div
-          className="fixed inset-0 z-[150] bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-[150] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setShowPermissionModal(false)}
         >
           <div
-            className="relative w-full max-w-md bg-[#0d0d0d] border border-white/20 rounded-3xl p-6 sm:p-7 shadow-[0_25px_80px_rgba(0,0,0,0.95)] flex flex-col items-center text-center overflow-hidden"
+            className="relative w-full max-w-md bg-card border border-border rounded-3xl p-6 sm:p-7 shadow-2xl flex flex-col items-center text-center overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Background accent glow */}
-            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-48 h-48 bg-[#c8ff00]/15 rounded-full blur-3xl pointer-events-none" />
-
             {/* Close Button */}
             <button
               type="button"
               onClick={() => setShowPermissionModal(false)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+              className="absolute top-4 right-4 p-2 rounded-full bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-4 h-4" />
@@ -643,43 +640,43 @@ export default function ComputerKnowledgeSearch({
 
             {/* Glowing Microphone Icon */}
             <div className="relative mb-4 mt-2">
-              <div className="w-16 h-16 rounded-2xl bg-[#c8ff00]/15 border border-[#c8ff00]/40 flex items-center justify-center text-[#c8ff00] shadow-[0_0_30px_rgba(200,255,0,0.25)]">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary shadow-sm">
                 <Mic className="w-8 h-8" />
               </div>
             </div>
 
             {/* Heading */}
-            <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">
+            <h3 className="font-sans text-xl sm:text-2xl font-bold text-foreground mb-2 tracking-tight">
               माइक्रोफ़ोन अनुमति आवश्यक है
             </h3>
-            <p className="text-xs text-[#c8ff00] font-mono mb-4 tracking-wider uppercase">
+            <p className="text-xs text-primary font-mono mb-4 tracking-wider uppercase">
               Microphone Permission Required
             </p>
 
             {/* Explanation paragraph */}
-            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-5">
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-5">
               बोलकर कोई भी प्रश्न पूछने के लिए आपके ब्राउज़र में माइक्रोफ़ोन की अनुमति देना आवश्यक है।
               जैसे ही आप नीचे दिए गए बटन पर क्लिक करेंगे, ब्राउज़र आपसे माइक्रोफ़ोन की अनुमति मांगेगा।
               अनुमति देते ही आप बिना टाइप किए सीधे अपनी आवाज़ में कोई भी सवाल पूछ सकेंगे।
             </p>
 
             {/* 3 Key Points */}
-            <div className="w-full bg-black/50 border border-white/10 rounded-2xl p-3.5 mb-5 text-left space-y-2.5 text-xs">
+            <div className="w-full bg-muted/60 border border-border rounded-2xl p-3.5 mb-5 text-left space-y-2.5 text-xs">
               <div className="flex items-start gap-2.5">
-                <Sparkles className="w-4 h-4 text-[#c8ff00] shrink-0 mt-0.5" />
-                <span className="text-neutral-200">
-                  <strong className="text-white">सीधे बोलकर पूछें:</strong> आपको कीबोर्ड से कुछ भी लिखने की ज़रूरत नहीं होगी।
+                <Sparkles className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <span className="text-foreground">
+                  <strong>सीधे बोलकर पूछें:</strong> आपको कीबोर्ड से कुछ भी लिखने की ज़रूरत नहीं होगी।
                 </span>
               </div>
               <div className="flex items-start gap-2.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <span className="text-neutral-200">
-                  <strong className="text-white">सुरक्षित एवं निजी:</strong> माइक्रोफ़ोन केवल आपके सवाल को रिकॉर्ड कर सर्च करने के लिए उपयोग किया जाता है।
+                <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <span className="text-foreground">
+                  <strong>सुरक्षित एवं निजी:</strong> माइक्रोफ़ोन केवल आपके सवाल को रिकॉर्ड कर सर्च करने के लिए उपयोग किया जाता है।
                 </span>
               </div>
               <div className="flex items-start gap-2.5">
-                <HelpCircle className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
-                <span className="text-neutral-300 text-[11px]">
+                <HelpCircle className="w-4 h-4 text-sky-500 shrink-0 mt-0.5" />
+                <span className="text-muted-foreground text-[11px]">
                   यदि ब्राउज़र ने अनुमति पहले रोक रखी है, तो ऊपर एड्रेस बार में लॉक (🔒) आइकन पर क्लिक करके Microphone को <strong>Allow</strong> करें।
                 </span>
               </div>
@@ -691,7 +688,7 @@ export default function ComputerKnowledgeSearch({
                 type="button"
                 onClick={requestMicPermissionAndStart}
                 disabled={isRequestingPermission}
-                className="interactive-option w-full py-3.5 px-6 rounded-2xl bg-[#c8ff00] hover:bg-[#d4ff33] text-black font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(200,255,0,0.3)] transition-all cursor-pointer disabled:opacity-50"
+                className="interactive-option w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer disabled:opacity-50 hover:opacity-90"
               >
                 {isRequestingPermission ? (
                   <>
@@ -709,7 +706,7 @@ export default function ComputerKnowledgeSearch({
               <button
                 type="button"
                 onClick={() => setShowPermissionModal(false)}
-                className="w-full py-2.5 px-4 rounded-xl text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-xl text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               >
                 लिखकर सवाल पूछें / Type instead
               </button>
