@@ -1,0 +1,8 @@
+{
+  "name": "Basics — Learn Computer Basics the Easy Way",
+  "description": "Learn Computer Basics the Easy Way: 90% practical everyday computing skills (Windows navigation, essential keyboard shortcuts, MS Office, file management, internet & email, cybersecurity) and a 10% friendly intro to computer components.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
