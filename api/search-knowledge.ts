@@ -1,16 +1,12 @@
 import { GoogleGenAI } from '@google/genai';
-import { getOfflineKnowledgeAnswer } from '../src/lib/offlineComputerKnowledge';
 
 let aiClient: GoogleGenAI | null = null;
 function getAI() {
+  const rawKey = process.env.GEMINI_API_KEY || '';
+  const apiKey = rawKey.trim().replace(/^["']|["']$/g, '');
   if (!aiClient) {
     aiClient = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
-      httpOptions: {
-        headers: {
-          'User-Agent': 'aistudio-build',
-        },
-      },
+      apiKey,
     });
   }
   return aiClient;
@@ -37,7 +33,16 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const { query } = req.body || {};
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        body = { query: body };
+      }
+    }
+
+    const query = body?.query;
     if (!query || typeof query !== 'string' || !query.trim()) {
       res.status(400).json({ error: 'Query is required.' });
       return;
@@ -69,12 +74,14 @@ export default async function handler(req: any, res: any) {
       return;
     }
 
-    // If no GEMINI_API_KEY is configured on Vercel yet, respond with offline knowledge engine
-    if (!process.env.GEMINI_API_KEY) {
-      const fallback = getOfflineKnowledgeAnswer(trimmedQuery);
+    const rawKey = process.env.GEMINI_API_KEY || '';
+    const apiKey = rawKey.trim().replace(/^["']|["']$/g, '');
+
+    // If no GEMINI_API_KEY is configured on Vercel yet
+    if (!apiKey) {
       res.status(200).json({
-        answer: fallback.answer,
-        sources: fallback.sources,
+        answer: `### 💻 कंप्यूटर गाइड: "${trimmedQuery}"\n\n1. **त्वरित सहायता व शॉर्टकट्स:**\n   - सेटिंग्स खोलने के लिए: \`[Win] + [I]\` दबाएं।\n   - कोई भी फाइल या ऐप खोजने के लिए: \`[Win] + [S]\` दबाएं।\n   - कार्य प्रबंधक (Task Manager): \`[Ctrl] + [Shift] + [Esc]\`\n   - गलती सुधारने के लिए (Undo): \`[Ctrl] + [Z]\`\n2. **अधिक जानकारी के लिए:**\n   - आप सर्च बार में कंप्यूटर से जुड़े मुख्य विषय जैसे: **"RAM", "CPU", "स्क्रीनशॉट", "शॉर्टकट", "कंप्यूटर चालू/बंद", "वायरस", "इंटरनेट", "धीमा कंप्यूटर", "फॉर्मेट", "प्रिंटर", "फुल फॉर्म"** आदि टाइप करके तुरंत विस्तृत उत्तर पा सकते हैं।`,
+        sources: [{ title: 'BASICS Computer Knowledge Base', uri: '#hero' }],
       });
       return;
     }
@@ -100,17 +107,29 @@ Structure your answer clearly with markdown:
 6. If the user asks in Hindi or Hinglish, explain comfortably in easy-to-understand Hindi/Hinglish.`;
 
     let response: any = null;
+    const modelsToTry = [
+      process.env.GEMINI_MODEL,
+      'gemini-3.8-flash',
+      'gemini-flash-latest',
+      'gemini-3.6-flash',
+      'gemini-3.1-flash-lite',
+    ].filter(Boolean) as string[];
 
-    try {
-      response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: trimmedQuery,
-        config: {
-          systemInstruction,
-        },
-      });
-    } catch (aiErr) {
-      console.warn('Vercel serverless AI error, switching to fallback:', aiErr);
+    for (const model of modelsToTry) {
+      try {
+        response = await ai.models.generateContent({
+          model,
+          contents: trimmedQuery,
+          config: {
+            systemInstruction,
+          },
+        });
+        if (response?.text) {
+          break;
+        }
+      } catch (aiErr) {
+        console.warn(`Model ${model} failed on Vercel, trying next:`, aiErr);
+      }
     }
 
     if (response?.text) {
@@ -126,18 +145,15 @@ Structure your answer clearly with markdown:
       return;
     }
 
-    // Fallback if AI call didn't yield text
-    const fallback = getOfflineKnowledgeAnswer(trimmedQuery);
     res.status(200).json({
-      answer: fallback.answer,
-      sources: fallback.sources,
+      answer: `### 💻 कंप्यूटर गाइड: "${trimmedQuery}"\n\n1. **त्वरित शॉर्टकट्स:**\n   - \`[Win] + [I]\` (सेटिंग्स)\n   - \`[Win] + [S]\` (सर्च)\n   - \`[Ctrl] + [Shift] + [Esc]\` (टास्क मैनेजर)\n2. **टिप:** कृपया अपना सवाल थोड़ा अधिक विस्तार से लिखें या माइक दबाकर बोलें।`,
+      sources: [{ title: 'BASICS Computer Knowledge Base', uri: '#hero' }],
     });
   } catch (err: any) {
     console.error('Vercel serverless function error:', err);
-    const fallback = getOfflineKnowledgeAnswer(req.body?.query || 'computer');
     res.status(200).json({
-      answer: fallback.answer,
-      sources: fallback.sources,
+      answer: `### 💻 कंप्यूटर गाइड\n\nक्षमा करें, इस समय सर्वर व्यस्त है। कृपया कुछ सेकंड बाद पुनः प्रयास करें या कोई अन्य प्रश्न पूछें।\n\n- **त्वरित शॉर्टकट:** सेटिंग्स के लिए \`[Win] + [I]\`, सर्च के लिए \`[Win] + [S]\`।`,
+      sources: [{ title: 'BASICS Help', uri: '#hero' }],
     });
   }
 }
