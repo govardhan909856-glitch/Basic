@@ -63,7 +63,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
         </p>
 
         {/* ── Main Question Input Box (Direct & Clean) ── */}
-        <div className="mt-8 sm:mt-10 w-full max-w-xl px-2 z-20">
+        <div className="mt-8 sm:mt-10 w-full max-w-2xl px-2 z-20">
           <ComputerKnowledgeSearch variant="hero" />
         </div>
 

@@ -4,9 +4,16 @@ interface TechQuote {
   quote: string;
   author: string;
   title: string;
+  theme?: 'red' | 'default';
 }
 
 const MOTIVATIONAL_QUOTES: TechQuote[] = [
+  {
+    quote: "You won't pass unless you write.",
+    author: "Dr. Pradeep Kumar",
+    title: "Educator & Academic Mentor",
+    theme: 'red',
+  },
   {
     quote: "Everybody in this country should learn how to use and understand a computer, because it teaches you how to think.",
     author: "Steve Jobs",
@@ -62,34 +69,71 @@ export default function MotivationSection() {
 
         {/* Motivational Quotes Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {MOTIVATIONAL_QUOTES.map((item, index) => (
-            <div
-              key={index}
-              className="group relative p-7 sm:p-8 rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-xl hover:bg-[#0f0f0f]/90 border border-white/[0.12] hover:border-[#c8ff00]/40 shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(200,255,0,0.12)] transition-all duration-300 floating-option interactive-option cursor-pointer flex flex-col justify-between"
-            >
-              {/* Top Quote Icon */}
-              <div>
-                <div className="mb-5 inline-flex p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-[#c8ff00]/30 text-[#c8ff00] group-hover:bg-[#c8ff00] group-hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(200,255,0,0.15)]">
-                  <Quote className="w-4 h-4" />
+          {MOTIVATIONAL_QUOTES.map((item, index) => {
+            const isRed = item.theme === 'red';
+            return (
+              <div
+                key={index}
+                className={`group relative p-7 sm:p-8 rounded-2xl backdrop-blur-xl transition-all duration-300 floating-option interactive-option cursor-pointer flex flex-col justify-between ${
+                  isRed
+                    ? 'bg-gradient-to-b from-[#1f0909]/95 to-[#120404]/95 border border-red-500/40 hover:border-red-500/80 shadow-[0_8px_32px_rgba(239,68,68,0.18)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.9),0_0_30px_rgba(239,68,68,0.35)] ring-1 ring-red-500/20'
+                    : 'bg-[#0a0a0a]/80 hover:bg-[#0f0f0f]/90 border border-white/[0.12] hover:border-[#c8ff00]/40 shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(200,255,0,0.12)]'
+                }`}
+              >
+                {/* Top Quote Icon */}
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div
+                      className={`inline-flex p-2.5 rounded-xl backdrop-blur-md transition-all duration-300 ${
+                        isRed
+                          ? 'bg-red-950/70 border border-red-500/40 text-red-400 group-hover:bg-red-600 group-hover:text-white shadow-[0_0_15px_rgba(239,68,68,0.3)]'
+                          : 'bg-black/60 border border-[#c8ff00]/30 text-[#c8ff00] group-hover:bg-[#c8ff00] group-hover:text-black shadow-[0_0_15px_rgba(200,255,0,0.15)]'
+                      }`}
+                    >
+                      <Quote className="w-4 h-4" />
+                    </div>
+
+                    {isRed && (
+                      <span className="text-[10px] font-mono tracking-wider uppercase text-amber-200 bg-gradient-to-r from-amber-500/20 via-yellow-400/25 to-amber-500/20 border border-amber-400/60 px-3 py-0.5 rounded-full font-bold shadow-[0_0_16px_rgba(245,158,11,0.4)] ring-1 ring-amber-400/20">
+                        Golden Rule
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Quote Text */}
+                  <blockquote
+                    className={`text-sm sm:text-base leading-relaxed font-normal italic ${
+                      isRed ? 'text-red-100 font-medium' : 'text-neutral-200'
+                    }`}
+                  >
+                    "{item.quote}"
+                  </blockquote>
                 </div>
 
-                {/* Quote Text */}
-                <blockquote className="text-sm sm:text-base text-neutral-200 leading-relaxed font-normal italic">
-                  "{item.quote}"
-                </blockquote>
+                {/* Author's name written in small font right below each quote */}
+                <div
+                  className={`mt-6 pt-4 border-t ${
+                    isRed ? 'border-red-500/20' : 'border-white/[0.06]'
+                  }`}
+                >
+                  <p
+                    className={`text-xs font-semibold tracking-wide font-mono ${
+                      isRed ? 'text-red-300' : 'text-white'
+                    }`}
+                  >
+                    — {item.author}
+                  </p>
+                  <p
+                    className={`text-[11px] mt-0.5 font-light ${
+                      isRed ? 'text-red-300/70' : 'text-neutral-400'
+                    }`}
+                  >
+                    {item.title}
+                  </p>
+                </div>
               </div>
-
-              {/* Author's name written in small font right below each quote */}
-              <div className="mt-6 pt-4 border-t border-white/[0.06]">
-                <p className="text-xs font-semibold text-white tracking-wide font-mono">
-                  — {item.author}
-                </p>
-                <p className="text-[11px] text-neutral-400 mt-0.5 font-light">
-                  {item.title}
-                </p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

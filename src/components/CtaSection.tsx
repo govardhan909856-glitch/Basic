@@ -35,7 +35,7 @@ export default function CtaSection() {
           संपर्क करें
           <br />
           <span className="text-[#c8ff00] drop-shadow-[0_0_35px_rgba(200,255,0,0.3)]">
-            Govardhan Yadav
+            HELP
           </span>
         </h2>
 
