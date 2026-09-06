@@ -81,15 +81,6 @@ function getSearchApiUrl(): string {
   if (customUrl && typeof customUrl === 'string' && customUrl.trim()) {
     return `${customUrl.trim().replace(/\/$/, '')}/api/search-knowledge`;
   }
-  // When running on GitHub Pages or Vercel,
-  // automatically route to the active Cloud Run server where the Gemini AI API runs securely
-  if (
-    typeof window !== 'undefined' &&
-    (window.location.hostname.includes('github.io') ||
-      window.location.hostname.includes('vercel.app'))
-  ) {
-    return 'https://ais-pre-ep6vknroswpwqicftot3se-851804173696.asia-southeast1.run.app/api/search-knowledge';
-  }
   return '/api/search-knowledge';
 }
 

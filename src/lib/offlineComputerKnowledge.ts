@@ -314,21 +314,314 @@ export function getOfflineKnowledgeAnswer(query: string): KnowledgeResult {
     };
   }
 
+  // 11. कंप्यूटर क्या है (What is a Computer)
+  if (
+    q.includes('कंप्यूटर क्या') ||
+    q.includes('what is computer') ||
+    q.includes('what is a computer') ||
+    q.includes('computer kya') ||
+    q.includes('कंप्यूटर की परिभाषा')
+  ) {
+    return {
+      answer: `### 🖥️ कंप्यूटर क्या है? (What is a Computer)
+
+**कंप्यूटर** एक इलेक्ट्रॉनिक उपकरण (Electronic Device) है जो यूज़र से कच्चा डेटा (Input) लेता है, उसे अपने प्रोसेसर (CPU) की मदद से प्रोसेस करता है, और अंत में एक सार्थक परिणाम (Output/Information) प्रदान करता है।
+
+#### 🔄 कंप्यूटर का बुनियादी कार्य-चक्र (IPO Cycle):
+1. **इनपुट (Input):** कीबोर्ड, माउस, स्कैनर आदि से निर्देश प्राप्त करना।
+2. **प्रोसेसिंग (Processing):** CPU द्वारा गणना, तर्क और विश्लेषण करना।
+3. **आउटपुट (Output):** मॉनिटर स्क्रीन, प्रिंटर या स्पीकर पर परिणाम दिखाना।
+4. **स्टोरेज (Storage):** भविष्य में उपयोग के लिए हार्ड डिस्क/SSD में डेटा सहेजना।
+
+#### 🔑 कंप्यूटर के मुख्य लाभ:
+- **तीव्र गति (High Speed):** करोड़ों गणनाएं प्रति सेकंड करना।
+- **सटीकता (100% Accuracy):** सही इनपुट पर कभी गलती न करना।
+- **मेमोरी (Huge Storage):** विशाल मात्रा में किताबें, फाइल्स व मीडिया सुरक्षित रखना।`,
+      sources: [{ title: 'Fundamentals of Computing', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
+  // 12. हार्डवेयर और सॉफ्टवेयर (Hardware vs Software)
+  if (
+    q.includes('hardware') ||
+    q.includes('software') ||
+    q.includes('हार्डवेयर') ||
+    q.includes('सॉफ्टवेयर')
+  ) {
+    return {
+      answer: `### ⚙️ हार्डवेयर और सॉफ्टवेयर में अंतर (Hardware vs Software)
+
+| बिंदु | हार्डवेयर (Hardware) | सॉफ्टवेयर (Software) |
+| :--- | :--- | :--- |
+| **परिभाषा** | कंप्यूटर के वे भौतिक अंग जिन्हें हम छू सकते हैं और देख सकते हैं। | निर्देशों और प्रोग्रामों का समूह जो हार्डवेयर को काम करने का आदेश देता है। |
+| **प्रकृति** | भौतिक (Physical Tangible) | आभासी/डिजिटल (Intangible) |
+| **खराबी** | खराब होने पर बदलना या रिपेयर करना पड़ता है। | क्रैश होने पर री-इंस्टॉल या अपडेट किया जाता है। |
+| **उदाहरण** | कीबोर्ड, माउस, मॉनिटर, CPU, RAM, मदरबोर्ड, हार्ड डिस्क। | Windows 11, MS Office, Google Chrome, Photoshop, VLC Player। |
+
+#### 💡 सरल शब्दों में:
+हार्डवेयर कंप्यूटर का **शरीर** है और सॉफ्टवेयर उसकी **आत्मा** (निर्देश)। बिना सॉफ्टवेयर के हार्डवेयर केवल एक खाली डिब्बा है!`,
+      sources: [{ title: 'Hardware vs Software Fundamentals', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
+  // 13. इंटरनेट, वाई-फाई और नेटवर्क (Internet & Wi-Fi)
+  if (
+    q.includes('internet') ||
+    q.includes('इंटरनेट') ||
+    q.includes('wifi') ||
+    q.includes('वाईफाई') ||
+    q.includes('router') ||
+    q.includes('नेटवर्क') ||
+    q.includes('network')
+  ) {
+    return {
+      answer: `### 🌐 इंटरनेट और वाई-फाई क्या है और कैसे काम करता है?
+
+1. **इंटरनेट (Internet):**
+   - यह दुनिया भर के अरबों कंप्यूटरों और सर्वरों का एक विशाल वैश्विक नेटवर्क है (International Network)।
+   - इसके माध्यम से जानकारी, ईमेल, वीडियो, वेबसाइट्स और फाइलों का सेकंडों में आदान-प्रदान होता है।
+2. **वाई-फाई (Wi-Fi - Wireless Fidelity):**
+   - बिना किसी तार (Wireless) के रेडियो तरंगों (Radio Waves) द्वारा आपके कंप्यूटर या मोबाइल को इंटरनेट से जोड़ने की तकनीक है।
+3. **कंप्यूटर को Wi-Fi से कैसे जोड़ें:**
+   - टास्कबार के नीचे दाएँ कोने में **Wi-Fi/Network आइकन** पर क्लिक करें।
+   - अपने नेटवर्क का नाम चुनें और **Connect** दबाएं।
+   - वाई-फाई का सही पासवर्ड दर्ज करें।
+
+#### 💡 यदि इंटरनेट न चले (Troubleshooting):
+- राउटर को 30 सेकंड के लिए बंद करके दोबारा चालू (Restart) करें।
+- कीबोर्ड पर \`[Win] + [I]\` दबाएं ➔ **Network & Internet** ➔ **Network troubleshooter** चलाएं।`,
+      sources: [{ title: 'Networking & Internet Protocols Guide', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
+  // 14. वायरस, एंटीवायरस और सुरक्षा (Virus, Malware & Security)
+  if (
+    q.includes('virus') ||
+    q.includes('वायरस') ||
+    q.includes('antivirus') ||
+    q.includes('एंटीवायरस') ||
+    q.includes('malware') ||
+    q.includes('सुरक्षा') ||
+    q.includes('security')
+  ) {
+    return {
+      answer: `### 🛡️ कंप्यूटर वायरस और एंटीवायरस क्या है?
+
+1. **कंप्यूटर वायरस (Virus):**
+   - यह एक दुर्भावनापूर्ण सॉफ्टवेयर प्रोग्राम (Malware) है जो आपकी अनुमति के बिना कंप्यूटर में घुसकर फाइलों को खराब करता है, सिस्टम को धीमा करता है या डेटा चुराता है।
+   - यह संदिग्ध लिंक, संक्रमित पेनड्राइव या पायरेटेड सॉफ्टवेयर डाउनलोड करने से फैलता है।
+2. **एंटीवायरस (Antivirus):**
+   - यह एक सुरक्षा सॉफ्टवेयर है जो वायरस को स्कैन करके उन्हें हटाता है (उदा. Windows Defender, Quick Heal, Avast, Kaspersky)।
+3. **विंडोज का इनबिल्ट एंटीवायरस (Windows Defender):**
+   - Windows 10 और 11 में पहले से ही शक्तिशाली **Windows Security** मौजूद होता है।
+   - इसे खोलने के लिए: \`[Win] + [S]\` दबाएं और टाइप करें **Windows Security** ➔ **Quick Scan** करें।
+
+#### 🔒 कंप्यूटर को सुरक्षित रखने के 4 नियम:
+- कभी भी किसी अनजान ईमेल अटैचमेंट को न खोलें।
+- किसी दूसरे की पेनड्राइव लगाने से पहले उसे स्कैन करें।
+- विंडोज को हमेशा अप-टू-डेट रखें।`,
+      sources: [{ title: 'Cybersecurity & Windows Defender Guide', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
+  // 15. एमएस ऑफिस - वर्ड, एक्सेल, पावरपॉइंट (MS Office / Word / Excel)
+  if (
+    q.includes('word') ||
+    q.includes('excel') ||
+    q.includes('powerpoint') ||
+    q.includes('office') ||
+    q.includes('वर्ड') ||
+    q.includes('एक्सेल') ||
+    q.includes('पावरपॉइंट')
+  ) {
+    return {
+      answer: `### 📄 Microsoft Office के मुख्य सॉफ्टवेयर और उनके कार्य
+
+1. **Microsoft Word (दस्तावेज़ / डॉक्यूमेंट):**
+   - पत्र, बायोडाटा (Resume), नोट्स, रिपोर्ट और किताबें लिखने के लिए।
+   - शॉर्टकट: सेव करने के लिए \`[Ctrl] + [S]\`, प्रिंट के लिए \`[Ctrl] + [P]\`, बोल्ड के लिए \`[Ctrl] + [B]\`।
+2. **Microsoft Excel (स्प्रेडशीट / डेटा गणना):**
+   - गणितीय गणनाएं, मार्कशीट, बजट, वित्तीय आंकड़े और टेबल बनाने के लिए।
+   - मुख्य सूत्र (Formulas): जोड़ने के लिए \`=SUM(A1:A10)\`, औसत के लिए \`=AVERAGE(A1:A10)\`।
+3. **Microsoft PowerPoint (प्रस्तुति / Presentations):**
+   - स्लाइड्स, प्रेजेंटेशन, एनिमेशन और सेमिनार प्रोजेक्ट्स बनाने के लिए।
+   - फुल स्क्रीन प्रेजेंटेशन शुरू करने के लिए: \`[F5]\` दबाएं।
+
+#### 💡 प्रो-टिप:
+- रन बॉक्स में \`winword\` टाइप करने से Word, \`excel\` टाइप करने से Excel और \`powerpnt\` टाइप करने से PowerPoint तुरंत खुल जाता है।`,
+      sources: [{ title: 'MS Office Suite Comprehensive Guide', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
+  // 16. कंप्यूटर धीमा / स्पीड कैसे बढ़ाएं (Slow PC Speedup)
+  if (
+    q.includes('धीमा') ||
+    q.includes('slow') ||
+    q.includes('speed') ||
+    q.includes('स्पीड') ||
+    q.includes('hang') ||
+    q.includes('हैंग') ||
+    q.includes('कचरा') ||
+    q.includes('clean') ||
+    q.includes('temp')
+  ) {
+    return {
+      answer: `### 🚀 कंप्यूटर की स्पीड कैसे बढ़ाएं? (5 आसान और असरदार तरीके)
+
+1. **अस्थायी (Temporary/Junk) फाइल्स डिलीट करें:**
+   - \`[Win] + [R]\` दबाएं और टाइप करें \`temp\` ➔ सारी फाइलें सिलेक्ट करके डिलीट करें।
+   - दोबारा \`[Win] + [R]\` दबाएं और टाइप करें \`%temp%\` ➔ सभी फाइल्स सिलेक्ट कर \`[Shift] + [Delete]\` दबाएं।
+   - \`[Win] + [R]\` दबाकर \`prefetch\` टाइप करें और फाइल्स साफ करें।
+2. **स्टार्टअप ऐप्स बंद करें (Startup Apps Disable):**
+   - \`[Ctrl] + [Shift] + [Esc]\` दबाकर Task Manager खोलें।
+   - **Startup apps** टैब में जाएं और उन ऐप्स को Disable करें जो कंप्यूटर ऑन होते ही खुद खुल जाते हैं।
+3. **डिस्क क्लीनअप चलाएं:**
+   - स्टार्ट मेनू में **Disk Cleanup** सर्च करके C: ड्राइव की बेकार सिस्टम फाइलें खाली करें।
+4. **रीसायकल बिन (Recycle Bin) खाली करें:**
+   - डेस्कटॉप पर Recycle Bin पर राइट-क्लिक करें और **Empty Recycle Bin** चुनें।
+5. **SSD और RAM अपग्रेड:**
+   - यदि आपकी मुख्य ड्राइव HDD (हार्ड डिस्क) है, तो उसमें SATA/NVMe SSD लगवाएं — इससे स्पीड 10 गुना बढ़ जाएगी!`,
+      sources: [{ title: 'Windows Performance Optimization Guide', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
+  // 17. ब्राउज़र और सर्च इंजन (Browser vs Search Engine)
+  if (
+    q.includes('browser') ||
+    q.includes('ब्राउज़र') ||
+    q.includes('chrome') ||
+    q.includes('क्रोम') ||
+    q.includes('search engine') ||
+    q.includes('गूगल')
+  ) {
+    return {
+      answer: `### 🌐 ब्राउज़र और सर्च इंजन में अंतर
+
+1. **वेब ब्राउज़र (Web Browser):**
+   - वह सॉफ्टवेयर जो आपको इंटरनेट पर वेबसाइट्स खोलने और देखने की सुविधा देता है।
+   - **उदाहरण:** Google Chrome, Microsoft Edge, Mozilla Firefox, Safari, Brave।
+2. **सर्च इंजन (Search Engine):**
+   - इंटरनेट पर मौजूद लाखों वेबसाइटों में से आपके द्वारा पूछे गए सवाल की जानकारी ढूंढकर लाने वाली वेबसाइट।
+   - **उदाहरण:** Google, Bing, Yahoo, DuckDuckGo।
+
+#### ⌨️ ब्राउज़र के सबसे उपयोगी शॉर्टकट्स:
+- नया टैब खोलना: \`[Ctrl] + [T]\`
+- गलती से बंद हुआ टैब दोबारा खोलना: \`[Ctrl] + [Shift] + [T]\`
+- इनकॉग्निटो / प्राइवेट विंडो: \`[Ctrl] + [Shift] + [N]\`
+- हिस्ट्री देखना: \`[Ctrl] + [H]\`
+- डाउनलोड्स देखना: \`[Ctrl] + [J]\``,
+      sources: [{ title: 'Web Browsers & Navigation Guide', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
+  // 18. कंप्यूटर फुल फॉर्म्स (Computer Full Forms)
+  if (
+    q.includes('full form') ||
+    q.includes('फुल फॉर्म') ||
+    q.includes('फुलफॉर्म') ||
+    q.includes('फुलनेम')
+  ) {
+    return {
+      answer: `### 📚 महत्वपूर्ण कंप्यूटर फुल फॉर्म्स (Essential Computer Full Forms)
+
+| संक्षिप्त नाम | पूरा नाम (Full Form) |
+| :--- | :--- |
+| **CPU** | Central Processing Unit (कंप्यूटर का दिमाग) |
+| **RAM** | Random Access Memory (अस्थायी मेमोरी) |
+| **ROM** | Read Only Memory (स्थायी शुरुआती मेमोरी) |
+| **SSD** | Solid State Drive (अल्ट्रा-फास्ट स्टोरेज) |
+| **HDD** | Hard Disk Drive (हार्ड ड्राइव) |
+| **USB** | Universal Serial Bus |
+| **GPU** | Graphics Processing Unit |
+| **OS** | Operating System (जैसे Windows, Linux) |
+| **URL** | Uniform Resource Locator (वेबसाइट का पता) |
+| **HTTP/HTTPS**| Hypertext Transfer Protocol (Secure) |
+| **PDF** | Portable Document Format |
+| **LAN/WAN**| Local Area Network / Wide Area Network |
+| **GUI** | Graphical User Interface |
+| **BIOS** | Basic Input Output System |`,
+      sources: [{ title: 'Computer Abbreviations & Terminology', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
+  // 19. फॉर्मेट और विंडोज इंस्टॉलेशन (Format & Windows Install)
+  if (
+    q.includes('format') ||
+    q.includes('फॉर्मेट') ||
+    q.includes('install windows') ||
+    q.includes('विंडोज इंस्टॉल') ||
+    q.includes('reset pc') ||
+    q.includes('रीसेट')
+  ) {
+    return {
+      answer: `### 🔄 कंप्यूटर को रीसेट या फॉर्मेट कैसे करें? (Safe Reset Guide)
+
+Windows 10/11 में कंप्यूटर को फॉर्मेट या रीसेट करने के लिए किसी बाहरी डिस्क की जरूरत नहीं होती:
+
+1. **सेटिंग्स खोलें:**
+   - दबाएं: \`[Win] + [I]\`
+2. **रिकवरी में जाएं:**
+   - Windows 11: **System** ➔ **Recovery** ➔ **Reset PC**
+   - Windows 10: **Update & Security** ➔ **Recovery** ➔ **Reset this PC (Get started)**
+3. **विकल्प चुनें:**
+   - **Keep my files:** आपकी फोटो, गाने और दस्तावेज सुरक्षित रहेंगे, केवल सॉफ्टवेयर और सेटिंग्स नई जैसी हो जाएंगी।
+   - **Remove everything:** पूरा कंप्यूटर पूरी तरह से खाली और नया हो जाएगा (फॉर्मेट)।
+4. **Cloud Download या Local Reinstall:**
+   - 'Local Reinstall' चुनें और निर्देशों का पालन करें। कंप्यूटर अपने आप रीस्टार्ट होकर बिल्कुल नया हो जाएगा।
+
+⚠️ **चेतावनी:** प्रक्रिया शुरू करने से पहले अपने जरूरी डेटा का बैकअप किसी पेनड्राइव या गूगल ड्राइव पर अवश्य लें!`,
+      sources: [{ title: 'Windows 10/11 Reset & Recovery Guide', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
+  // 20. प्रिंटर कैसे जोड़ें / प्रिंट कैसे करें (Printer & Print Shortcut)
+  if (
+    q.includes('printer') ||
+    q.includes('प्रिंटर') ||
+    q.includes('print') ||
+    q.includes('प्रिंट')
+  ) {
+    return {
+      answer: `### 🖨️ कंप्यूटर से प्रिंट कैसे निकालें और प्रिंटर कैसे जोड़ें?
+
+1. **किसी भी फाइल या पेज को प्रिंट करने का शॉर्टकट:**
+   - दबाएं: \`[Ctrl] + [P]\`
+   - स्क्रीन पर प्रिंट विंडो खुलेगी।
+   - अपना प्रिंटर चुनें, प्रतियों की संख्या (Copies) डालें और **Print** पर क्लिक करें।
+2. **नया प्रिंटर कंप्यूटर में कैसे जोड़ें:**
+   - प्रिंटर को बिजली से जोड़ें और ऑन करें।
+   - USB केबल को कंप्यूटर के CPU पोर्ट में लगाएं।
+   - दबाएं: \`[Win] + [I]\` ➔ **Bluetooth & devices** ➔ **Printers & scanners**
+   - **Add device** पर क्लिक करें। विंडोज अपने आप प्रिंटर ढूंढकर ड्राइवर इंस्टॉल कर लेगा।
+
+#### 💡 प्रो-टिप:
+- बिना प्रिंटर के किसी भी पेज को PDF के रूप में सेव करने के लिए प्रिंटर में **"Microsoft Print to PDF"** चुनें!`,
+      sources: [{ title: 'Peripherals & Printer Management', uri: '#hero' }],
+      isOfflineFallback: true,
+    };
+  }
+
   // Generic intelligent fallback for any other computer query
   return {
     answer: `### 💻 कंप्यूटर गाइड: "${query}"
 
-1. **बुनियादी सिद्धांत (Overview):**
-   - कंप्यूटर में किसी भी कमांड या टास्क को पूरा करने के लिए विंडोज कीबोर्ड शॉर्टकट्स और सेटिंग्स सबसे प्रभावी माध्यम हैं।
-2. **महत्वपूर्ण शॉर्टकट्स एवं चरण:**
+1. **त्वरित सहायता व शॉर्टकट्स:**
    - सेटिंग्स खोलने के लिए: \`[Win] + [I]\` दबाएं।
-   - फाइल खोजने या खोलने के लिए: \`[Win] + [S]\` दबाएं और नाम टाइप करें।
-   - सिस्टम डिटेल्स और स्पेक्स देखने के लिए: \`[Win] + [Pause/Break]\` दबाएं या 'This PC' पर राइट-क्लिक करके Properties देखें।
-   - किसी भी काम को वापस सामान्य करने के लिए: \`[Ctrl] + [Z]\` (Undo) या \`[Esc]\` (Cancel) दबाएं।
-3. **कंप्यूटर को सुरक्षित व तेज रखने के टिप्स:**
-   - नियमित रूप से रीसायकल बिन खाली करें।
-   - \`[Win] + [R]\` दबाकर \`temp\` और \`%temp%\` टाइप करें और गैर-जरूरी अस्थायी फाइल्स डिलीट करें।
-   - किसी भी ऐप को बंद करने के लिए \`[Alt] + [F4]\` का उपयोग करें।`,
+   - कोई भी फाइल या ऐप खोजने के लिए: \`[Win] + [S]\` दबाएं।
+   - कार्य प्रबंधक (Task Manager): \`[Ctrl] + [Shift] + [Esc]\`
+   - गलती सुधारने के लिए (Undo): \`[Ctrl] + [Z]\`
+2. **अधिक जानकारी के लिए:**
+   - आप सर्च बार में कंप्यूटर से जुड़े मुख्य विषय जैसे: **"RAM", "CPU", "स्क्रीनशॉट", "शॉर्टकट", "कंप्यूटर चालू/बंद", "वायरस", "इंटरनेट", "धीमा कंप्यूटर", "फॉर्मेट", "प्रिंटर", "फुल फॉर्म"** आदि टाइप करके तुरंत विस्तृत उत्तर पा सकते हैं।
+   - *टिप:* Google Gemini AI द्वारा किसी भी सवाल का रीयल-टाइम उत्तर पाने के लिए वेबसाइट को **Vercel** पर डिप्लॉय करें।`,
     sources: [
       { title: 'BASICS Computer Literacy Knowledge Base', uri: '#hero' },
     ],
