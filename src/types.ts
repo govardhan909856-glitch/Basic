@@ -3,6 +3,9 @@ export interface Project {
   name: string;
   category: string;
   image: string;
+  gifUrl?: string;
+  videoPlaceholderUrl?: string;
+  neonColor?: string;
   tall?: boolean;
   year: string;
   client: string;
@@ -34,14 +37,4 @@ export interface MetricItem {
   suffix?: string;
   label: string;
   sublabel?: string;
-}
-
-export type FormationKey = 'sphere' | 'helix' | 'grid' | 'torus' | 'galaxy' | 'vortex';
-
-export interface FormationInfo {
-  id: number;
-  key: FormationKey;
-  name: string;
-  description: string;
-  colorHex: string;
 }

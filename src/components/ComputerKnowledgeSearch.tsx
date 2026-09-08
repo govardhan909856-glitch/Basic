@@ -669,7 +669,7 @@ export default function ComputerKnowledgeSearch({
                 </span>
               </div>
               <div className="flex items-start gap-2.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                 <span className="text-foreground">
                   <strong>सुरक्षित एवं निजी:</strong> माइक्रोफ़ोन केवल आपके सवाल को रिकॉर्ड कर सर्च करने के लिए उपयोग किया जाता है।
                 </span>

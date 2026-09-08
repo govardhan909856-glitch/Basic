@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, CheckCircle2, Calendar, BookOpen, Sparkles, Check, Laptop, FileText, Table, Presentation, Code2, Palette } from 'lucide-react';
+import { X, CheckCircle2, Calendar, BookOpen, Sparkles, Check, Laptop, FileText, Table, Presentation, Code2, Palette, Cpu, Keyboard } from 'lucide-react';
 import { Project } from '../types';
 
 interface ProjectModalProps {
@@ -15,6 +15,8 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Palette,
   Sparkles,
   Laptop,
+  Cpu,
+  Keyboard,
 };
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
@@ -57,13 +59,21 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         <div className="overflow-y-auto flex-1">
           {/* Project Hero Banner */}
-          <div className="relative h-56 sm:h-72 w-full overflow-hidden">
+          <div className="relative h-56 sm:h-72 w-full overflow-hidden bg-black/90 group">
             <img
               src={project.image}
               alt={project.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover animate-smooth-kenburns smooth-image-hover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+            <div className="smooth-shine-effect z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-black/30" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none opacity-40" />
+
+            {/* Smooth HD Badge */}
+            <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-white/20 text-[10px] font-mono text-primary font-semibold shadow-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="tracking-wider uppercase">HD MODULE PREVIEW</span>
+            </div>
 
             {/* Banner Meta */}
             <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6">

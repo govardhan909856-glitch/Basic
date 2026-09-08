@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronLeft, ChevronRight, FileText, Table, Presentation, Code2, Palette, Sparkles, BookOpen } from "lucide-react";
+import { ChevronLeft, ChevronRight, FileText, Table, Presentation, Code2, Palette, Sparkles, BookOpen, Cpu, Keyboard } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -10,9 +10,11 @@ const useIsoLayoutEffect =
 
 export interface CoverflowSlide {
   src: string;
+  gifUrl?: string;
   alt: string;
   title?: string;
   subtitle?: string;
+  neonColor?: string;
   meta?: { label: string; value: string }[];
   id?: string;
   iconName?: string;
@@ -27,6 +29,8 @@ const SLIDE_ICONS: Record<string, React.ComponentType<{ className?: string }>> =
   Palette,
   Sparkles,
   BookOpen,
+  Cpu,
+  Keyboard,
 };
 
 export interface CoverflowCarouselProps {
@@ -323,36 +327,61 @@ export function CoverflowCarousel({
                   }
                 }}
                 className={cn(
-                  "absolute left-1/2 top-0 aspect-square overflow-hidden rounded-2xl bg-muted shadow-lg will-change-transform cursor-pointer border border-border hover:border-primary transition-colors",
+                  "group absolute left-1/2 top-0 aspect-square overflow-hidden rounded-2xl bg-muted shadow-lg will-change-transform cursor-pointer border border-border/80 hover:border-primary/90 transition-all duration-500",
+                  "hover:scale-[1.03] active:scale-[0.99]",
+                  "hover:shadow-[0_0_30px_rgba(56,189,248,0.35)] dark:hover:shadow-[0_0_40px_rgba(56,189,248,0.55)]",
                   cardClassName,
                 )}
-                style={{ width: "var(--cf-card)" }}
+                style={{
+                  width: "var(--cf-card)",
+                  boxShadow: slide.neonColor
+                    ? undefined
+                    : undefined,
+                }}
               >
+                {/* High-Resolution Module Image with Smooth Animations */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={slide.src}
                   alt={slide.alt}
                   draggable={false}
-                  className="h-full w-full select-none object-cover"
+                  loading="lazy"
+                  className="h-full w-full select-none object-cover smooth-image-hover transition-transform duration-700 ease-out group-hover:scale-108 group-active:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-                {/* Relevant Module Icon Badge */}
+                {/* Smooth Interactive Shine Sweep Effect */}
+                <div className="smooth-shine-effect z-10" />
+
+                {/* Cyber Scanline & Dark Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10 pointer-events-none transition-opacity duration-300 group-hover:opacity-75" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity" />
+
+                {/* Top-Left: Smooth HD Preview Status Indicator */}
+                <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-mono text-primary font-medium shadow-sm pointer-events-none">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  <span className="tracking-wider uppercase">HD PREVIEW</span>
+                </div>
+
+                {/* Relevant Module Icon Badge with Neon Accent */}
                 {slide.iconName && SLIDE_ICONS[slide.iconName] && (() => {
                   const SlideIcon = SLIDE_ICONS[slide.iconName];
                   return (
-                    <div className="absolute top-3 right-3 z-10 p-2.5 rounded-xl bg-card/90 backdrop-blur-xl border border-border text-primary shadow-md">
+                    <div className="absolute top-3 right-3 z-10 p-2 rounded-xl bg-black/75 backdrop-blur-xl border border-white/15 text-primary group-hover:text-cyan-400 group-hover:border-cyan-400/60 transition-colors shadow-lg">
                       <SlideIcon className="w-4 h-4" />
                     </div>
                   );
                 })()}
 
+                {/* Subtle Modern Neon Glow Line on Hover */}
+                <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                {/* Slide Title & Meta */}
                 {slide.title && (
-                  <div className="absolute bottom-3 left-3 right-3 pointer-events-none">
-                    <span className="text-[10px] font-mono tracking-wider uppercase text-primary block mb-0.5">
-                      {slide.subtitle || "Component"}
+                  <div className="absolute bottom-3 left-3 right-3 pointer-events-none z-10">
+                    <span className="text-[10px] font-mono tracking-wider uppercase text-primary/90 group-hover:text-cyan-300 transition-colors block mb-0.5">
+                      {slide.subtitle || "Module"}
                     </span>
-                    <p className="text-xs sm:text-sm font-bold text-white line-clamp-1">
+                    <p className="text-xs sm:text-sm font-bold text-white line-clamp-1 group-hover:text-cyan-100 transition-colors">
                       {slide.title}
                     </p>
                   </div>

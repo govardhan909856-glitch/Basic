@@ -214,31 +214,6 @@ body {
   background-size: 180px;
 }
 
-/* ── Canvas Wrap ─────────────────── */
-.canvas-wrap {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-color: var(--background);
-  transition: background-color 0.3s ease;
-}
-
-.canvas-wrap canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.canvas-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 35%, var(--background) 100%);
-  transition: background 0.3s ease;
-}
-
 /* Glow Utilities */
 .glow-accent {
   text-shadow: 0 0 30px color-mix(in oklch, var(--primary) 25%, transparent);
@@ -394,4 +369,63 @@ a:hover svg {
     opacity: 0;
     transform: scaleX(1);
   }
+}
+
+/* ── Smooth Image & Card Animation Utilities ── */
+@keyframes smoothKenBurns {
+  0%, 100% {
+    transform: scale(1.02) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.07) translate(-0.8%, -0.8%);
+  }
+}
+
+.animate-smooth-kenburns {
+  animation: smoothKenBurns 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes smoothShineSweep {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateX(250%) skewX(-25deg);
+    opacity: 0;
+  }
+}
+
+.smooth-shine-effect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 100%
+  );
+  transform: translateX(-150%) skewX(-25deg);
+  opacity: 0;
+}
+
+.group:hover .smooth-shine-effect {
+  animation: smoothShineSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.smooth-image-hover {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, filter;
+}
+
+.group:hover .smooth-image-hover {
+  transform: scale(1.08);
+  filter: brightness(1.05) contrast(1.02);
 }

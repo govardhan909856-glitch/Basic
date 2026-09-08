@@ -29,7 +29,7 @@ export default function Footer() {
             href="https://wa.me/919098564648?text=Hello%20Basics%20Team"
             target="_blank"
             rel="noreferrer"
-            className="w-12 h-12 rounded-full bg-muted hover:bg-emerald-500/20 text-emerald-500 border border-border hover:border-emerald-500/40 flex items-center justify-center transition-all duration-300 shadow-sm floating-option interactive-option"
+            className="w-12 h-12 rounded-full bg-muted hover:bg-primary/20 text-foreground hover:text-primary border border-border hover:border-primary flex items-center justify-center transition-all duration-300 shadow-sm floating-option interactive-option"
             aria-label="WhatsApp"
             title="Chat on WhatsApp: +91 9098564648"
           >

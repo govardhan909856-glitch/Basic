@@ -313,7 +313,7 @@ export function CoverflowCarousel({
                   }
                 }}
                 className={cn(
-                  "absolute left-1/2 top-0 aspect-square overflow-hidden rounded-2xl bg-muted shadow-2xl will-change-transform cursor-pointer border border-white/10 hover:border-[#c8ff00]/60 transition-colors",
+                  "absolute left-1/2 top-0 aspect-square overflow-hidden rounded-2xl bg-muted shadow-2xl will-change-transform cursor-pointer border border-white/10 hover:border-primary/60 transition-colors",
                   cardClassName,
                 )}
                 style={{ width: "var(--cf-card)" }}
@@ -328,7 +328,7 @@ export function CoverflowCarousel({
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
                 {slide.title && (
                   <div className="absolute bottom-3 left-3 right-3 pointer-events-none">
-                    <span className="text-[10px] font-mono tracking-wider uppercase text-[#c8ff00] block mb-0.5">
+                    <span className="text-[10px] font-mono tracking-wider uppercase text-primary block mb-0.5">
                       {slide.subtitle || "Component"}
                     </span>
                     <p className="text-xs sm:text-sm font-bold text-white line-clamp-1">
@@ -347,7 +347,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Previous slide"
               onClick={() => nudge(-1)}
-              className="absolute left-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-black/60 border border-white/20 p-2.5 text-white backdrop-blur transition hover:bg-[#c8ff00] hover:text-black cursor-pointer shadow-lg"
+              className="absolute left-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-black/60 border border-white/20 p-2.5 text-white backdrop-blur transition hover:bg-primary hover:text-primary-foreground cursor-pointer shadow-lg"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -355,7 +355,7 @@ export function CoverflowCarousel({
               type="button"
               aria-label="Next slide"
               onClick={() => nudge(1)}
-              className="absolute right-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-black/60 border border-white/20 p-2.5 text-white backdrop-blur transition hover:bg-[#c8ff00] hover:text-black cursor-pointer shadow-lg"
+              className="absolute right-3 top-1/2 z-[200] -translate-y-1/2 rounded-full bg-black/60 border border-white/20 p-2.5 text-white backdrop-blur transition hover:bg-primary hover:text-primary-foreground cursor-pointer shadow-lg"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -369,7 +369,7 @@ export function CoverflowCarousel({
           className="mt-4 flex flex-col items-center px-6 duration-300 animate-in fade-in"
         >
           <div className="text-center">
-            <span className="text-xs font-mono tracking-widest text-[#c8ff00] uppercase font-semibold">
+            <span className="text-xs font-mono tracking-widest text-primary uppercase font-semibold">
               {active.subtitle || "SILICON COMPONENT"}
             </span>
             <p className="text-xl sm:text-2xl font-bold tracking-tight text-white mt-1">
@@ -400,7 +400,7 @@ export function CoverflowCarousel({
               onClick={() => goTo(index)}
               className={cn(
                 "size-2.5 rounded-full transition-all cursor-pointer",
-                index === selected ? "bg-[#c8ff00] w-6" : "bg-white/30 hover:bg-white/60",
+                index === selected ? "bg-primary w-6" : "bg-white/30 hover:bg-white/60",
               )}
             />
           ))}
