@@ -9,11 +9,9 @@ import MotivationSection from './components/MotivationSection';
 import CtaSection from './components/CtaSection';
 import Footer from './components/Footer';
 import ProjectModal from './components/ProjectModal';
-import ScrollGenerativeController from './components/ScrollGenerativeController';
 import { Project } from './types';
 
 export default function App() {
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isDark, setIsDark] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
@@ -44,21 +42,6 @@ export default function App() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Track scroll progress smoothly for Navbar
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
-      setScrollProgress(Math.max(0, Math.min(1, progress)));
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const scrollToWork = () => {
     const el = document.getElementById('work');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -66,15 +49,11 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground font-sans transition-colors duration-300">
-      {/* ── Cinematic Grain Overlay ── */}
+      {/* ── Subtle Ambient Backdrop ── */}
       <div className="grain-overlay" />
-
-      {/* ── Scroll-Driven Generative Materialize Controller ── */}
-      <ScrollGenerativeController />
 
       {/* ── Top Navigation ── */}
       <Navbar
-        scrollProgress={scrollProgress}
         onOpenContact={scrollToContact}
         isDark={isDark}
         onToggleTheme={toggleTheme}

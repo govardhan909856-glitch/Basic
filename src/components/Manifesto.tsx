@@ -12,29 +12,49 @@ const MANIFESTO_WORDS = [
 
 export default function Manifesto() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [illuminatedFraction, setIlluminatedFraction] = useState(0);
+  const [illuminatedCount, setIlluminatedCount] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
       const el = sectionRef.current;
-      if (!el) return;
+      if (!el) {
+        ticking = false;
+        return;
+      }
+
       const rect = el.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Start illuminating when top is at 75% of viewport, finish when bottom is at 30%
+      // Skip calculation entirely when element is completely out of view
+      if (rect.bottom < -100 || rect.top > windowHeight + 100) {
+        ticking = false;
+        return;
+      }
+
+      // Start illuminating when top is at 75% of viewport, finish when bottom is at 25%
       const start = windowHeight * 0.75;
       const end = windowHeight * 0.25;
       const progress = (start - rect.top) / (start - end + rect.height * 0.5);
       const clamped = Math.max(0, Math.min(1, progress));
-      setIlluminatedFraction(clamped);
+      const newCount = Math.floor(clamped * MANIFESTO_WORDS.length);
+
+      setIlluminatedCount((prev) => (prev !== newCount ? newCount : prev));
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(handleScroll);
+        ticking = true;
+      }
+    };
 
-  const illuminatedCount = Math.floor(illuminatedFraction * MANIFESTO_WORDS.length);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <section

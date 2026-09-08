@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Menu, X, Sparkles, Sun, Moon } from 'lucide-react';
 
 interface NavbarProps {
-  scrollProgress: number;
   onOpenContact: () => void;
   onOpenSearch?: () => void;
   isDark?: boolean;
@@ -10,7 +9,6 @@ interface NavbarProps {
 }
 
 export default function Navbar({
-  scrollProgress,
   onOpenContact,
   onOpenSearch,
   isDark = true,
@@ -18,12 +16,34 @@ export default function Navbar({
 }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+    let ticking = false;
+
+    const updateScroll = () => {
+      const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
+
+      if (progressBarRef.current) {
+        progressBarRef.current.style.transform = `scaleX(${progress})`;
+      }
+
+      const shouldBeScrolled = scrollY > 40;
+      setIsScrolled((prev) => (prev !== shouldBeScrolled ? shouldBeScrolled : prev));
+      ticking = false;
     };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+    updateScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -56,13 +76,14 @@ export default function Navbar({
 
   return (
     <>
-      {/* ── Scroll Progress Line ────────────────── */}
+      {/* ── Scroll Progress Line (Direct Compositor Transform) ── */}
       <div
         id="scrollProgress"
-        className="fixed top-0 left-0 z-[999] h-[2px] bg-primary shadow-sm transition-transform duration-75 ease-out origin-left pointer-events-none"
+        ref={progressBarRef}
+        className="fixed top-0 left-0 z-[999] h-[2px] bg-primary shadow-sm origin-left pointer-events-none w-full"
         style={{
-          width: '100%',
-          transform: `scaleX(${Math.max(0, Math.min(1, scrollProgress))})`,
+          transform: 'scaleX(0)',
+          willChange: 'transform',
         }}
       />
 
